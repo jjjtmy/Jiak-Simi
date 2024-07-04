@@ -15,7 +15,7 @@ import { useState, setShow } from "react";
 import { Link } from "react-router-dom";
 import myImg from "../assets/jiaksimi1.png";
 
-export default function LoginPage() {
+export default function SignUpPage() {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
 
@@ -33,7 +33,7 @@ export default function LoginPage() {
           </CardHeader>
 
           <CardBody>
-            <Input placeholder="Username" />
+            <Input type="text" placeholder="Username" />
             <InputGroup size="md" mt="4">
               <Input
                 pr="4.5rem"
@@ -50,16 +50,9 @@ export default function LoginPage() {
           <CardFooter>
             {/* TODO: Need to handle submit */}
             <Button w="full" colorScheme="blue">
-              Login
+              Create Account
             </Button>
           </CardFooter>
-          <Text mb="4" alignContent="left">
-            Not a member?
-            <Link to="/signup" color="blue">
-              {" "}
-              Sign up
-            </Link>
-          </Text>
         </Card>
       </Box>
     </main>
