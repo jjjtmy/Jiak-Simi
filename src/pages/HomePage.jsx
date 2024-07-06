@@ -20,7 +20,7 @@ export default function LazyLoadGrid() {
     threshold: 0.1,
   });
 
-  //when inView or pages changes, , update cards and page
+  //when inView or pages changes, update cards and page
   useEffect(() => {
     if (inView) {
       const newCards = fetchData(page);
@@ -52,6 +52,7 @@ const styles = {
     gap: "16px",
     padding: "16px",
     width: "90vw",
+    height: "100",
   },
   card: {
     padding: "20px",

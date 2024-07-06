@@ -1,9 +1,25 @@
-import { Box, Image, Text } from "@chakra-ui/react";
-import { Icon } from "@chakra-ui/react";
+import { Box, Image, Text, Icon } from "@chakra-ui/react";
 import { TiThumbsUp } from "react-icons/ti";
+import { getReviews } from "../service/reviews";
+import { useEffect, useState } from "react";
 
 //TODO: replace with api to call place model in database
 export default function FoodCard({ image, name }) {
+  const [reviewData, setReviewData] = useState(null);
+
+  useEffect(() => {
+    async function fetchReviews() {
+      try {
+        const data = await getReviews();
+        setReviewData(data);
+      } catch (error) {
+        console.error("Failed to fetch reviews", error);
+      }
+    }
+
+    fetchReviews();
+  }, []);
+
   return (
     <Box
       maxW="sm"
@@ -19,7 +35,7 @@ export default function FoodCard({ image, name }) {
       <Box h="90px">
         <Box p="1">
           <Box d="flex" alignItems="baseline" fontWeight="bold">
-            Food
+            {reviewData ? `Dish ${reviewData.dish_id}` : "Loading..."}
           </Box>
           <Box d="flex" alignItems="baseline">
             @eatery
@@ -27,10 +43,10 @@ export default function FoodCard({ image, name }) {
         </Box>
 
         <Box display="flex" justifyContent="space-around" fontWeight="bold">
-          <Text>$10</Text>
+          <Text>{reviewData ? `$${reviewData.price}` : "Loading..."}</Text>
           <Box display="flex" justifyContent="space-around" fontWeight="bold">
             <Text fontWeight="bold" color="orange">
-              4.2
+              {reviewData ? reviewData.rating : "Loading..."}
             </Text>
             <Icon as={TiThumbsUp} boxSize={8} color="orange" />
           </Box>
