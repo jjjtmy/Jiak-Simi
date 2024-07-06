@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  Icon,
-  Heading,
-  Text,
-  Stack,
-  Radio,
-} from "@chakra-ui/react";
+import { Box, Icon, Heading, Text, Stack, Radio } from "@chakra-ui/react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
@@ -17,6 +9,25 @@ export default function CuisinePage() {
   const handleCuisineSelect = (cuisine) => {
     setSelectedCuisine(cuisine);
   };
+
+  const RadioCard = ({ cuisine, isSelected, onSelect }) => {
+    return (
+      <Box
+        bg={isSelected ? "orange" : "lightyellow"}
+        p={2}
+        borderRadius="md"
+        border="1px"
+        borderColor="orange"
+        textAlign="left"
+        onClick={() => onSelect(cuisine)}
+      >
+        <Radio size="md" colorScheme="orange" isChecked={isSelected}>
+          {cuisine}
+        </Radio>
+      </Box>
+    );
+  };
+
   return (
     <div style={styles.page}>
       <Box display="flex" flexDirection="column" alignItems="flex-start" p={4}>
@@ -30,68 +41,34 @@ export default function CuisinePage() {
           One only pls
         </Text>
       </Box>
-      {/* 
-      <VStack spacing={4} align="flex-start" p={4} style={styles.list} w="100%"> */}
-      {/* <Text
-          width="100%"
-          border="1px"
-          borderRadius="5px"
-          borderColor="orange"
-          bg="lightyellow"
-          p={1}
-          textAlign="left"
-        > */}
-      {/* Local Food
-        </Text>
-        <Text>Japanese</Text>
-        <Text>Korean</Text>
-        <Text>Italian</Text>
-        <Text>Fast Food</Text>
-      </VStack> */}
 
-      <Stack>
-        <Text style={styles.listItem}>
-          <Radio
-            size="md"
-            name="1"
-            colorScheme="orange"
-            isChecked={selectedCuisine === "Local Food"}
-            onChange={() => handleCuisineSelect("Local Food")}
-          >
-            Local Food
-          </Radio>
-        </Text>
-        <Text style={styles.listItem}>
-          <Radio
-            size="md"
-            name="1"
-            colorScheme="orange"
-            isChecked={selectedCuisine === "Japanese"}
-            onChange={() => handleCuisineSelect("Japanese")}
-          >
-            Japanese
-          </Radio>
-        </Text>
-        <Text style={styles.listItem}>
-          <Radio size="md" name="1" colorScheme="orange">
-            Korean
-          </Radio>
-        </Text>
-        <Text style={styles.listItem}>
-          <Radio size="md" name="1" colorScheme="orange">
-            Italian
-          </Radio>
-        </Text>
-        <Text style={styles.listItem}>
-          <Radio size="md" name="1" colorScheme="orange">
-            Greek
-          </Radio>
-        </Text>
+      <Stack spacing={2} width="90%" ml="5%" mt={4}>
+        <RadioCard
+          cuisine="Local Food"
+          isSelected={selectedCuisine === "Local Food"}
+          onSelect={handleCuisineSelect}
+        />
+        <RadioCard
+          cuisine="Japanese"
+          isSelected={selectedCuisine === "Japanese"}
+          onSelect={handleCuisineSelect}
+        />
+        <RadioCard
+          cuisine="Korean"
+          isSelected={selectedCuisine === "Korean"}
+          onSelect={handleCuisineSelect}
+        />
+        <RadioCard
+          cuisine="Italian"
+          isSelected={selectedCuisine === "Italian"}
+          onSelect={handleCuisineSelect}
+        />
+        <RadioCard
+          cuisine="Greek"
+          isSelected={selectedCuisine === "Greek"}
+          onSelect={handleCuisineSelect}
+        />
       </Stack>
-
-      <Button w="full" colorScheme="orange" mt={5}>
-        Next
-      </Button>
     </div>
   );
 }
@@ -105,16 +82,4 @@ const styles = {
     justifyContent: "flex-start",
     width: "80vw",
   },
-  listItem: {
-    width: "80vw",
-    border: "1px",
-    borderRadius: "5px",
-    borderColor: "orange",
-    background: "lightyellow",
-    padding: "1px",
-    textAlign: "left",
-  },
 };
-
-// TODO: handleSelectCuisine = () => {change colour and unclick previous option};
-// TODO:handleClickNext = () => {direct to };
