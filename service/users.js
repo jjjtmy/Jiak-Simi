@@ -7,3 +7,15 @@ export async function signUp(userData) {
   // Baby step by returning whatever is sent back by the server
   return token;
 }
+
+export async function getSaltAndIterations(username) {
+  const saltAndIterations = await usersAPI.getSaltAndIterations(username);
+  console.log(saltAndIterations)
+  return saltAndIterations;
+}
+
+export async function loginUser(userData) {
+  const res = await usersAPI.loginUser(userData);
+  return res;
+}
+
