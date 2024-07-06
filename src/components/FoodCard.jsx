@@ -3,7 +3,7 @@ import { Icon } from "@chakra-ui/react";
 import { TiThumbsUp } from "react-icons/ti";
 
 //TODO: replace with api to call place model in database
-export default function FoodCard({ image, name, place, price, rating }) {
+export default function FoodCard({ image, name }) {
   return (
     <Box
       maxW="sm"
@@ -11,14 +11,13 @@ export default function FoodCard({ image, name, place, price, rating }) {
       borderRadius="lg"
       overflow="hidden"
       boxShadow="md"
-      mb={4}
       display="flex"
       flexDirection="column"
     >
-      <Image src={image} alt={name} objectFit="cover" h="200px" w="100%" />
+      <Image src={image} alt={name} objectFit="cover" h="120px" w="100%" />
 
-      <Box>
-        <Box p="6">
+      <Box h="90px">
+        <Box p="1">
           <Box d="flex" alignItems="baseline" fontWeight="bold">
             Food
           </Box>

@@ -32,7 +32,6 @@ export default function LazyLoadGrid() {
   return (
     <>
       <Header />
-
       <div style={styles.grid}>
         {cards.map((card) => (
           <FoodCard key={card.id} title={card.title} style={styles.card} />
@@ -52,7 +51,7 @@ const styles = {
     gridTemplateColumns: "repeat(2, 1fr)",
     gap: "16px",
     padding: "16px",
-    width: "80vw",
+    width: "90vw",
   },
   card: {
     padding: "20px",

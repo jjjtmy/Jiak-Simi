@@ -5,7 +5,6 @@ import { ChakraProvider } from "@chakra-ui/react";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import HomePage from "./pages/HomePage";
-import CuisinePage from "./pages/CuisinePage";
 
 function App() {
   const [user, setUser] = useState(0);
