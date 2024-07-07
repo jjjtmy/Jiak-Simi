@@ -31,30 +31,30 @@ export default function SignUpPage() {
   }
 
   function checkPassword() {
-    var currForm = formState;
-    if (!currForm.password) {
+    var formData = {...formState};
+    if (!formData.password) {
       return true;
     }
-    if (!currForm.confirm) {
+    if (!formData.confirm) {
       return true;
     }
-    if (currForm.password !== currForm.confirm) {
+    if (formData.password !== formData.confirm) {
       return true;
     }
-    if (currForm.password.length < 8) {
+    if (formData.password.length < 8) {
       return true;
     }
     return false;
   }
 
   function hashPassword() {
-    var currForm = formState;
-    if (currForm.password) {
-      console.log(currForm.password);
-      var hash = hashData(currForm.password);
-      currForm.password = hash.hash;
-      currForm.salt = hash.salt;
-      currForm.iterations = hash.iterations;
+    var formData = {...formState};
+    if (formData.password) {
+      console.log(formData.password);
+      var hash = hashData(formData.password);
+      formData.password = hash.hash;
+      formData.salt = hash.salt;
+      formData.iterations = hash.iterations;
     }
   }
 
@@ -64,9 +64,6 @@ export default function SignUpPage() {
 
       hashPassword();
       const formData = { ...formState };
-      delete formData.error;
-      delete formData.confirm;
-
       console.log(formData);
       const user = await signUp(formData);
       console.log(user);
