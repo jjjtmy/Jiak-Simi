@@ -13,4 +13,3 @@ export async function getSaltAndIterations(username) {
 
 export async function loginUser(userData) {
   return await sendRequest(`${BASE_URL}/login`, "POST", userData, 'Invalid User')
-}
