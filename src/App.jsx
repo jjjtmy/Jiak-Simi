@@ -4,10 +4,9 @@ import { Routes, Route } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
-  const [user, setUser] = useState(0);
-
   return (
     <>
       <ChakraProvider>
@@ -15,6 +14,7 @@ function App() {
           <Routes>
             <Route path="/login" element={<LoginPage />}></Route>
             <Route path="/signup" element={<SignUpPage />}></Route>
+            <Route path="/profile" element={<ProfilePage />}></Route>
           </Routes>
         </main>
       </ChakraProvider>
