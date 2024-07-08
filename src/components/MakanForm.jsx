@@ -1,7 +1,5 @@
 import {
-    Button,
   Flex,
-  FormControl,
   FormLabel,
   HStack,
   Input,
@@ -13,78 +11,68 @@ import {
 import StarRating from "./StarRating";
 import { useState } from "react";
 
-export default function MakanForm() {
-  const [rating, setRating] = useState(null);
-  const [formState, setFormState] = useState(null);
-
-  const handleChange = (evt) => {
-    setFormState((prevState) => ({
-      ...prevState,
-      [evt.target.name]: evt.target.value,
-    }));
-    console.log(formState);
-  };
-
-  async function handleSubmit(evt) {
-    try { 
-        evt.preventDefault();
-        setFormState((prevState) => ({
-            ...prevState,
-            "rating": rating,
-          }));
-        console.log(rating, formState);
-      
-      } catch(e) {
-        console.log(e);
-      }
-}
+export default function MakanForm({ formInput, setRating, index }) {
+    const handleChange = (evt) => {
+      const { name, value } = evt.target;
+      // set the lifted form state
+      formInput.setFormState((prevState) => {
+        // spread the current array of objects into the variable
+        const reviewState = [...prevState];
+        // target the current makan form using the index
+        reviewState[index] = {
+            // take the contents of this particular form and copy it
+          ...reviewState[index],
+          // change any new values
+          [name]: value,
+        };
+        console.log(reviewState)
+        // return the whole array of objects
+        return reviewState;
+      });
+    };
 
   return (
     <>
       <Flex direction="column">
-        <FormControl as="form" onSubmit={handleSubmit}>
-          <VStack>
-            <FormLabel m="0">Dish name</FormLabel>
-            <Input name="dish" onChange={handleChange} />
+        <VStack>
+          <FormLabel m="0">Dish name</FormLabel>
+          <Input name="dish" onChange={handleChange} />
 
-            <HStack>
-              <VStack>
-                <HStack>
-                  {/* {Price Label} */}
-                  <VStack align="stretch">
-                    <FormLabel m="0">Price</FormLabel>
-                    <InputGroup>
-                      <InputLeftElement
-                        pointerEvents="none"
-                        color="gray.300"
-                        fontSize="1.2em"
-                      >
-                        $
-                      </InputLeftElement>
-                      <Input
-                        name="price"
-                        type="number"
-                        placeholder="Enter amount"
-                        onChange={handleChange}
-                      />
-                    </InputGroup>
-                  </VStack>
-                  <VStack align="stretch">
-                    <FormLabel m="0">Rating</FormLabel>
-                    <StarRating name="rating" setRating={setRating} />
-                  </VStack>
-                </HStack>
-              </VStack>
-            </HStack>
-            <FormLabel m="0">Comment</FormLabel>
-            <Textarea
-              name="comments"
-              placeholder="Comments here"
-              onChange={handleChange}
-            />
-            <Button type='submit'>Submit</Button>
-          </VStack>
-        </FormControl>
+          <HStack>
+            <VStack>
+              <HStack>
+                <VStack align="stretch" mr="4">
+                  <FormLabel m="0">Price</FormLabel>
+                  <InputGroup>
+                    <InputLeftElement
+                      pointerEvents="none"
+                      color="gray.300"
+                      fontSize="1.2em"
+                    >
+                      $
+                    </InputLeftElement>
+                    <Input
+                      name="price"
+                      type="number"
+                      placeholder="Enter amount"
+                      onChange={handleChange}
+                    />
+                  </InputGroup>
+                </VStack>
+                <VStack align="stretch">
+                  <FormLabel mb="0">Rating</FormLabel>
+                  <StarRating name="rating" setRating={setRating} />
+                </VStack>
+              </HStack>
+            </VStack>
+          </HStack>
+          <FormLabel m="0">Comment</FormLabel>
+          <Textarea
+            name="comments"
+            placeholder="Comments here"
+            onChange={handleChange}
+          />
+        </VStack>
       </Flex>
     </>
   );
