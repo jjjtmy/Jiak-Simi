@@ -1,19 +1,44 @@
 import { useState } from "react";
 import MakanForm from "../components/MakanForm";
-import { Button, FormControl } from "@chakra-ui/react";
+import {
+  Button,
+  FormControl,
+  FormLabel,
+  HStack,
+  Input,
+  Select,
+  VStack,
+} from "@chakra-ui/react";
 
 export default function AddReviewPage() {
   const [formCount, setFormCount] = useState(1);
+  const [reviewState, setReviewState] = useState({});
   const [formState, setFormState] = useState([{}]);
+
+  function handleChange(evt) {
+    setReviewState((prevState) => ({
+      ...prevState,
+      [evt.target.name]: evt.target.value,
+    }));
+  }
 
   async function handleSubmit(evt) {
     try {
       evt.preventDefault();
-      console.log(formState);
+      // add in places and cuisine to the final state
+      setFormState((prevState) => ({
+        ...prevState,
+        ...reviewState,
+      }));
+      // make a copy of the state
+      const reviewToSubmit = {...formState}
+      // send it to service/api
+      
     } catch (e) {
       console.log(e);
     }
   }
+ 
 
   function addMakanForm() {
     setFormCount((prevFormCount) => prevFormCount + 1);
@@ -34,6 +59,31 @@ export default function AddReviewPage() {
   return (
     <>
       <FormControl as="form" onSubmit={handleSubmit}>
+        <HStack>
+          <VStack w="50%">
+            <FormLabel>Place</FormLabel>
+            <Input
+              name="place"
+              placeholder="Place Name"
+              onChange={handleChange}
+            />
+          </VStack>
+          <VStack>
+            <FormLabel>Cuisine</FormLabel>
+            <Select
+              name="cuisine"
+              placeholder="Cuisine"
+              onChange={handleChange}
+            >
+              <option value="Local Food">Local Food</option>
+              <option value="Korean">Korean</option>
+              <option value="Japanese">Japanese</option>
+              <option value="Italian">Italian</option>
+              <option value="Fast Food">Fast Food</option>
+            </Select>
+          </VStack>
+        </HStack>
+
         {Array.from({ length: formCount }).map((_, index) => (
           <MakanForm
             key={index}
@@ -42,11 +92,11 @@ export default function AddReviewPage() {
             setRating={(rating) => setRating(rating, index)}
           />
         ))}
+        <Button type="submit">Submit</Button>
       </FormControl>
 
       <footer>
         <Button onClick={addMakanForm}>Add Form</Button>
-        <Button type="submit">Submit</Button>
       </footer>
     </>
   );
