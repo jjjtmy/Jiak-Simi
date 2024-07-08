@@ -1,6 +1,8 @@
 import { Box, Image, Text, Icon } from "@chakra-ui/react";
 import { TiThumbsUp } from "react-icons/ti";
 import { getReviews } from "../service/reviews";
+import { getReviews as getDishes } from "../service/dishes";
+import { getReviews as getPlaces } from "../service/places";
 import { useEffect, useState } from "react";
 
 //TODO: replace with api to call place model in database
@@ -10,8 +12,21 @@ export default function FoodCard({ image, name }) {
   useEffect(() => {
     async function fetchReviews() {
       try {
-        const data = await getReviews();
-        setReviewData(data);
+        // const revData = await getReviews();
+        // const dishData = await getDishes();
+        // const placeData = await getPlaces();
+        // let combinedData = { ...revData, ...dishData, ...placeData };
+        // console.log(`FINAL DATA IS ${combinedData}`);
+        // setReviewData(combinedData);
+        const revData = await getReviews();
+
+        const dishData = await getDishes();
+
+        const placeData = await getPlaces();
+
+        const combinedData = { revData, dishData, placeData };
+        console.log(`FINAL DATA IS ${JSON.stringify(combinedData)}`);
+        setReviewData(combinedData);
       } catch (error) {
         console.error("Failed to fetch reviews", error);
       }
@@ -35,18 +50,22 @@ export default function FoodCard({ image, name }) {
       <Box h="90px">
         <Box p="1">
           <Box d="flex" alignItems="baseline" fontWeight="bold">
-            {reviewData ? `Dish ${reviewData.dish_id}` : "Loading..."}
+            {reviewData ? `Dish ${reviewData.dishData.name}` : "Loading..."}
           </Box>
           <Box d="flex" alignItems="baseline">
-            @eatery
+            <Text>
+              {reviewData ? `$${reviewData.placeData.name}` : "Loading..."}
+            </Text>
           </Box>
         </Box>
 
         <Box display="flex" justifyContent="space-around" fontWeight="bold">
-          <Text>{reviewData ? `$${reviewData.price}` : "Loading..."}</Text>
+          <Text>
+            {reviewData ? `$${reviewData.revData.price}` : "Loading..."}
+          </Text>
           <Box display="flex" justifyContent="space-around" fontWeight="bold">
             <Text fontWeight="bold" color="orange">
-              {reviewData ? reviewData.rating : "Loading..."}
+              {reviewData ? reviewData.revData.rating : "Loading..."}
             </Text>
             <Icon as={TiThumbsUp} boxSize={8} color="orange" />
           </Box>

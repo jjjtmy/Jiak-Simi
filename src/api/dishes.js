@@ -7,19 +7,12 @@ export async function getReview() {
   // const getLoginDetailsURL = BASE_URL + "/login?" + searchParams;
   // console.log(getLoginDetailsURL);
 
-  const res = await fetch(BASE_URL + "reviews", {
+  const res = await fetch(BASE_URL + "dishes", {
     method: "GET",
     headers: { "Content-Type": "application/json" },
     // Fetch requires data payloads to be stringified
     // and assigned to a body property on the options object
   });
-
-  // const res = await fetch(BASE_URL + "dishes", {
-  //   method: "GET",
-  //   headers: { "Content-Type": "application/json" },
-  //   // Fetch requires data payloads to be stringified
-  //   // and assigned to a body property on the options object
-  // });
 
   // Check if request was successful
   if (res.ok) {
