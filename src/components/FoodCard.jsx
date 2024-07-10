@@ -5,19 +5,12 @@ import { getReviews as getDishes } from "../service/dishes";
 import { getReviews as getPlaces } from "../service/places";
 import { useEffect, useState } from "react";
 
-//TODO: replace with api to call place model in database
 export default function FoodCard({ image, name }) {
   const [reviewData, setReviewData] = useState(null);
 
   useEffect(() => {
     async function fetchReviews() {
       try {
-        // const revData = await getReviews();
-        // const dishData = await getDishes();
-        // const placeData = await getPlaces();
-        // let combinedData = { ...revData, ...dishData, ...placeData };
-        // console.log(`FINAL DATA IS ${combinedData}`);
-        // setReviewData(combinedData);
         const revData = await getReviews();
 
         const dishData = await getDishes();
@@ -45,16 +38,17 @@ export default function FoodCard({ image, name }) {
       display="flex"
       flexDirection="column"
     >
+      {/* TODO: pull image from google */}
       <Image src={image} alt={name} objectFit="cover" h="120px" w="100%" />
 
       <Box h="90px">
         <Box p="1">
           <Box d="flex" alignItems="baseline" fontWeight="bold">
-            {reviewData ? `Dish ${reviewData.dishData.name}` : "Loading..."}
+            {reviewData ? `${reviewData.dishData.name}` : "Loading..."}
           </Box>
           <Box d="flex" alignItems="baseline">
             <Text>
-              {reviewData ? `$${reviewData.placeData.name}` : "Loading..."}
+              {reviewData ? `@${reviewData.placeData.name}` : "Loading..."}
             </Text>
           </Box>
         </Box>

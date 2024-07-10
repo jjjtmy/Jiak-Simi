@@ -16,15 +16,15 @@ export default function LazyLoadGrid() {
   const [cards, setCards] = useState([]);
   const [page, setPage] = useState(0);
   const [ref, inView] = useInView({
-    triggerOnce: false,
-    threshold: 0.1,
+    triggerOnce: false, // the intersection observer will trigger each time the element comes into view.
+    threshold: 0.5, // observer triggers when 50% of the element is visible.
   });
 
   //when inView or pages changes, update cards and page
   useEffect(() => {
     if (inView) {
       const newCards = fetchData(page);
-      setCards((prevCards) => [...prevCards, ...newCards]);
+      setCards((prevCards) => [...prevCards, ...newCards]); //new cards are added to the existing list using setCards
       setPage((prevPage) => prevPage + 1);
     }
   }, [inView, page]);
