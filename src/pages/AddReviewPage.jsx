@@ -9,6 +9,7 @@ import {
   Select,
   VStack,
 } from "@chakra-ui/react";
+import { createReview } from "../../service/reviews";
 
 export default function AddReviewPage() {
   const [formCount, setFormCount] = useState(1);
@@ -20,6 +21,7 @@ export default function AddReviewPage() {
       ...prevState,
       [evt.target.name]: evt.target.value,
     }));
+    console.log(formState)
   }
 
   async function handleSubmit(evt) {
@@ -31,9 +33,11 @@ export default function AddReviewPage() {
         ...reviewState,
       }));
       // make a copy of the state
-      const reviewToSubmit = {...formState}
+      const review = {...formState}
       // send it to service/api
-      
+      console.log(review)
+      const res = await createReview(review)
+      console.log(res)
     } catch (e) {
       console.log(e);
     }
