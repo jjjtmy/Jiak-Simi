@@ -1,4 +1,5 @@
 import * as usersAPI from "../api/users";
+import { getToken, removeToken } from "../util/security";
 
 export async function signUp(userData) {
   // Delegate the network request code to the users-api.js API module
@@ -10,7 +11,7 @@ export async function signUp(userData) {
 
 export async function getSaltAndIterations(username) {
   const saltAndIterations = await usersAPI.getSaltAndIterations(username);
-  console.log(saltAndIterations)
+  console.log(saltAndIterations);
   return saltAndIterations;
 }
 
@@ -19,3 +20,20 @@ export async function loginUser(userData) {
   return res;
 }
 
+export function getUser() {
+  const token = getToken();
+  // If there's a token, return the user in the payload, otherwise return null
+
+  return token ? JSON.parse(atob(token.split(".")[1])).payload.user_id : null;
+}
+
+export async function logOutUser() {
+  const token = getToken();
+  if (token) {
+    const res = await usersAPI.logOutUser(token, JSON.parse(atob(token.split(".")[1])).payload); 
+    removeToken(); // Remove token from FE
+    console.log(`user '${res}' logged out`);
+    return res
+  }
+  return null
+}
