@@ -13,11 +13,11 @@ import { createReview } from "../../service/reviews";
 
 export default function AddReviewPage() {
   const [formCount, setFormCount] = useState(1);
-  const [reviewState, setReviewState] = useState({});
+  const [placeState, setPlaceState] = useState({});
   const [formState, setFormState] = useState([{}]);
 
   function handleChange(evt) {
-    setReviewState((prevState) => ({
+    setPlaceState((prevState) => ({
       ...prevState,
       [evt.target.name]: evt.target.value,
     }));
@@ -27,16 +27,18 @@ export default function AddReviewPage() {
   async function handleSubmit(evt) {
     try {
       evt.preventDefault();
-      // add in places and cuisine to the final state
-      setFormState((prevState) => ({
-        ...prevState,
-        ...reviewState,
-      }));
-      // make a copy of the state
-      const review = {...formState}
+
+      console.log(placeState)
+      // define the structure of the data to be passed
+      const newReview = {
+        places: placeState.place,
+        cuisine: placeState.cuisine,
+        dishes: [...formState]
+      }
+      
+      console.log(newReview)
       // send it to service/api
-      console.log(review)
-      const res = await createReview(review)
+      const res = await createReview(newReview)
       console.log(res)
     } catch (e) {
       console.log(e);
