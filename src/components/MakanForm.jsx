@@ -36,7 +36,7 @@ export default function MakanForm({ formInput, setRating, index }) {
       <Flex direction="column">
         <VStack>
           <FormLabel m="0">Dish name</FormLabel>
-          <Input name="dish" onChange={handleChange} />
+          <Input name="name" onChange={handleChange} />
 
           <HStack>
             <VStack>
