@@ -10,14 +10,15 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { createReview } from "../../service/reviews";
+import { getToken } from "../../util/security";
 
 export default function AddReviewPage() {
   const [formCount, setFormCount] = useState(1);
-  const [reviewState, setReviewState] = useState({});
+  const [placeState, setPlaceState] = useState({});
   const [formState, setFormState] = useState([{}]);
 
   function handleChange(evt) {
-    setReviewState((prevState) => ({
+    setPlaceState((prevState) => ({
       ...prevState,
       [evt.target.name]: evt.target.value,
     }));
@@ -27,16 +28,23 @@ export default function AddReviewPage() {
   async function handleSubmit(evt) {
     try {
       evt.preventDefault();
-      // add in places and cuisine to the final state
-      setFormState((prevState) => ({
-        ...prevState,
-        ...reviewState,
-      }));
-      // make a copy of the state
-      const review = {...formState}
+
+      // pass user token to back 
+      const token = getToken();
+      // todo: IF TOKEN IS NULL, redirect user to login (if not there will be a null userID review entry)
+      console.log('token', token)
+      console.log(placeState)
+      // define the structure of the data to be passed
+      const newReview = {
+        token: token,
+        place: placeState.place,
+        cuisine: placeState.cuisine,
+        dishes: [...formState]
+      }
+      
+      console.log(newReview)
       // send it to service/api
-      console.log(review)
-      const res = await createReview(review)
+      const res = await createReview(newReview)
       console.log(res)
     } catch (e) {
       console.log(e);

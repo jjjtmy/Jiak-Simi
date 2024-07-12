@@ -3,7 +3,7 @@ const BASE_URL = "http://localhost:3000/reviews";
 
 export async function createReview(formData) {
   return await sendRequest(
-    `${BASE_URL}/newmakan`,
+    `${BASE_URL}/new`,
     "POST",
     formData,
     "Invalid Form Data"
