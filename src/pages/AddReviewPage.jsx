@@ -10,6 +10,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { createReview } from "../../service/reviews";
+import { getToken } from "../../util/security";
 
 export default function AddReviewPage() {
   const [formCount, setFormCount] = useState(1);
@@ -28,10 +29,15 @@ export default function AddReviewPage() {
     try {
       evt.preventDefault();
 
+      // pass user token to back 
+      const token = getToken();
+      // todo: IF TOKEN IS NULL, redirect user to login (if not there will be a null userID review entry)
+      console.log('token', token)
       console.log(placeState)
       // define the structure of the data to be passed
       const newReview = {
-        places: placeState.place,
+        token: token,
+        place: placeState.place,
         cuisine: placeState.cuisine,
         dishes: [...formState]
       }
