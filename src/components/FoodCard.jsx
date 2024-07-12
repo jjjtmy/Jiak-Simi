@@ -1,32 +1,55 @@
 import { Box, Image, Text, Icon } from "@chakra-ui/react";
 import { TiThumbsUp } from "react-icons/ti";
-import { getReviews } from "../service/reviews";
-import { getReviews as getDishes } from "../service/dishes";
-import { getReviews as getPlaces } from "../service/places";
+import { getDish } from "../../service/dishes";
+import { getPlace } from "../../service/places";
 import { useEffect, useState } from "react";
 
-export default function FoodCard({ image, name }) {
-  const [reviewData, setReviewData] = useState(null);
 
+
+export default function FoodCard({dish_id}) {
+  const [reviewData, setReviewData] = useState(null);
+  console.log(`FoodCard dish_id`, dish_id);
   useEffect(() => {
     async function fetchReviews() {
       try {
-        const revData = await getReviews();
+       
+        const dishData = await getDish(dish_id);
+        console.log(`FoodCard dishData`, dishData)
+        const placeData = await getPlace(dishData.place_id, dish_id);
+        console.log( `FoodCard placeData`, placeData)
 
-        const dishData = await getDishes();
-
-        const placeData = await getPlaces();
-
-        const combinedData = { revData, dishData, placeData };
+        const combinedData = { dishData, placeData };
         console.log(`FINAL DATA IS ${JSON.stringify(combinedData)}`);
         setReviewData(combinedData);
       } catch (error) {
         console.error("Failed to fetch reviews", error);
+        setReviewData(null); // Reset reviewData if an error occurs
       }
     }
 
     fetchReviews();
-  }, []);
+  }, [dish_id]); //Ensure useEffect runs when dish_id changes
+
+
+  // Render loading state or placeholder if reviewData is null
+  if (!reviewData) {
+    return (
+      <Box
+        maxW="sm"
+        borderWidth="1px"
+        borderRadius="lg"
+        overflow="hidden"
+        boxShadow="md"
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        p="4"
+      >
+        Loading...
+      </Box>
+    );
+  }
 
   return (
     <Box
@@ -39,27 +62,29 @@ export default function FoodCard({ image, name }) {
       flexDirection="column"
     >
       {/* TODO: pull image from google */}
-      <Image src={image} alt={name} objectFit="cover" h="120px" w="100%" />
+      <Image  objectFit="cover" h="120px" w="100%" />
 
       <Box h="90px">
         <Box p="1">
           <Box d="flex" alignItems="baseline" fontWeight="bold">
-            {reviewData ? `${reviewData.dishData.name}` : "Loading..."}
+            {reviewData.dishData.name !== null ? `${reviewData.dishData.name}` : "??"}
+
+          
           </Box>
           <Box d="flex" alignItems="baseline">
             <Text>
-              {reviewData ? `@${reviewData.placeData.name}` : "Loading..."}
+              {reviewData.placeData.name !== null ? `@${reviewData.placeData.name}` : "??"}
             </Text>
           </Box>
         </Box>
 
         <Box display="flex" justifyContent="space-around" fontWeight="bold">
           <Text>
-            {reviewData ? `$${reviewData.revData.price}` : "Loading..."}
+            {reviewData.dishData.latest_price != null ? `$${reviewData.dishData.latest_price}` : "??"}
           </Text>
           <Box display="flex" justifyContent="space-around" fontWeight="bold">
             <Text fontWeight="bold" color="orange">
-              {reviewData ? reviewData.revData.rating : "Loading..."}
+              {reviewData.dishData.avg_rating != null ? reviewData.dishData.avg_rating : "??"}
             </Text>
             <Icon as={TiThumbsUp} boxSize={8} color="orange" />
           </Box>
