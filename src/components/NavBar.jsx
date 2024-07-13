@@ -39,6 +39,7 @@ const styles = {
     backgroundColor: "#fff",
     borderTop: "1px solid #ccc",
     padding: "10px 0",
+    zIndex: 1000, // Ensure it stays on top of other content,
   },
 };
 
