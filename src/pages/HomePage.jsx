@@ -1,44 +1,48 @@
 import { useState, useEffect } from "react";
-import { useInView } from "react-intersection-observer";
 import Header from "../components/Header";
 import NavBar from "../components/NavBar";
 import FoodCard from "../components/FoodCard";
+import { fetchAllDishesIDs } from "../../service/dishes"
+//use dish id to get details for each card - hardcode the id. (0.5)
+//code fetchData to get all ids of dishes in db 
+//create resultpage/:cuisine - to filter by cusine below based on dishes 
+//cuisinepage - handle onclick to lead to resultpage/:cuisine 
+//profilepage - get reviews by userid. onclick - open editreview page
+//editreviewpage - map placeholder from db
 
-// Dummy data for demonstration - TODO: replace with card content
-const fetchData = (page) => {
-  return new Array(10).fill(null).map((_, index) => ({
-    id: page * 10 + index + 1,
-    title: `Card ${page * 10 + index + 1}`,
-  }));
-};
 
-export default function LazyLoadGrid() {
+export default function HomePage() {
   const [cards, setCards] = useState([]);
-  const [page, setPage] = useState(0);
-  const [ref, inView] = useInView({
-    triggerOnce: false, // the intersection observer will trigger each time the element comes into view.
-    threshold: 0.5, // observer triggers when 50% of the element is visible.
-  });
 
-  //when inView or pages changes, update cards and page
+  // useEffect(() => {
+  //   const allCards = fetchAllDishesIDs();  //return array of dish IDs
+  //   console.log(`allCards`, allCards)
+  //   setCards(allCards);
+  // }, []);
+
   useEffect(() => {
-    if (inView) {
-      const newCards = fetchData(page);
-      setCards((prevCards) => [...prevCards, ...newCards]); //new cards are added to the existing list using setCards
-      setPage((prevPage) => prevPage + 1);
+    async function fetchData() {
+      try {
+        const allCards = await fetchAllDishesIDs(); // Wait for the promise to resolve
+        console.log("allCards", allCards);
+        setCards(allCards); // Update state with the fetched array of dish IDs
+      } catch (error) {
+        console.error("Error fetching dish IDs:", error);
+        // Handle errors as needed
+      }
     }
-  }, [inView, page]);
+
+    fetchData(); // Call the async function to fetch data
+  }, []); // Empty dependency array ensures this effect runs only once on component mount
+
 
   return (
     <>
       <Header />
       <div style={styles.grid}>
         {cards.map((card) => (
-          <FoodCard key={card.id} title={card.title} style={styles.card} />
+          <FoodCard key={card._id} dish_id={card._id} style={styles.card} /> //pass dish_id as prop to each FoodCard
         ))}
-        <div ref={ref} style={styles.loader}>
-          Loading more cards...
-        </div>
       </div>
       <NavBar />
     </>
@@ -61,10 +65,5 @@ const styles = {
     borderRadius: "8px",
     boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
     textAlign: "center",
-  },
-  loader: {
-    gridColumn: "1 / -1",
-    textAlign: "center",
-    padding: "20px",
   },
 };
