@@ -6,7 +6,7 @@ import { FaHome, FaUserAlt } from "react-icons/fa";
 const NavBar = () => {
   return (
     <Flex as="nav" style={styles.navbar}>
-      <Link to="/home" style={styles.link}>
+      <Link to="/" style={styles.link}>
         <Flex direction="column" align="center">
           <Icon as={FaHome} boxSize={9} color="black" />
           <Text>Home</Text>
