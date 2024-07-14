@@ -49,12 +49,14 @@ export default function SignUpPage() {
 
   function hashPassword() {
     var formData = {...formState};
+    console.log('hashpassword form data', formData)
     if (formData.password) {
       console.log(formData.password);
       var hash = hashData(formData.password);
       formData.password = hash.hash;
       formData.salt = hash.salt;
       formData.iterations = hash.iterations;
+      return formData
     }
   }
 
@@ -63,8 +65,9 @@ export default function SignUpPage() {
       evt.preventDefault();
 
       hashPassword();
+      
       const formData = { ...formState };
-      console.log(formData);
+      console.log('handlesubmit formData', formData);
       const user = await signUp(formData);
       console.log(user);
     } catch (e) {

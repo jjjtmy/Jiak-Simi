@@ -11,7 +11,7 @@ export function hashData(data) {
     CryptoJS.enc.Base64
   );
   var iterations = getRndInteger(MIN_ITERATIONS, MAX_ITERATIONS);
-  // console.log(data, salt, iterations);
+  console.log(data, salt, iterations);
   var hash = CryptoJS.PBKDF2(data, salt, {
     keySize: KEY_SIZE,
     iterations: iterations,
