@@ -7,9 +7,10 @@ import SignUpPage from "./pages/SignUpPage";
 import AddReviewPage from "./pages/AddReviewPage";
 import ProfilePage from "./pages/ProfilePage";
 import HomePage from "./pages/HomePage";
+import EditReviewPage from "./pages/EditReviewPage"
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
 
   return (
     <ChakraProvider>
@@ -31,6 +32,12 @@ function App() {
             path="/addmakan"
             element={
               loggedIn ? <AddReviewPage /> : <Navigate to="/login" />
+            }
+          />
+                    <Route
+            path="/editmakan"
+            element={
+              loggedIn ? <EditReviewPage /> : <Navigate to="/login" />
             }
           />
         </Routes>

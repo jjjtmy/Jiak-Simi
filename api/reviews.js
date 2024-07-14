@@ -10,19 +10,18 @@ export async function createReview(formData) {
   );
 }
 
-// export async function getReview() {
-//   return await sendRequest(
-//     `${BASE_URL}/reviews`,
-//     "GET",
-//     null,
-//     "No review found"
-//   )}
-
-  export async function fetchReviewsByUser(user_id) {
+export async function getReview(review_id) {
   return await sendRequest(
-    `${BASE_URL}/${user_id}`,
+    `${BASE_URL}/reviewid/${review_id}`,
     "GET",
     null,
     "No review found"
   )}
 
+  export async function fetchReviewsByUser(user_id) {
+  return await sendRequest(
+    `${BASE_URL}/userid/${user_id}`,
+    "GET",
+    null,
+    "No review found"
+  )}

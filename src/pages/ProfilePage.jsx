@@ -9,6 +9,7 @@ import {
   StackDivider,
 } from "@chakra-ui/react";
 import { FaUserAlt } from "react-icons/fa";
+import { Link } from "react-router-dom"; 
 import NavBar from "../components/NavBar";
 import { fetchReviewsByUser } from "../../service/reviews";
 import { getDish } from "../../service/dishes";
@@ -23,7 +24,6 @@ export default function ProfilePage({ user_id = "668943b3237bdcaa6cf59a62" }) {
   // console.log(`user_id is`, user_id);
 
   const handleLogOut = () => {};
-  const editReview = () => {};
 
   const [myReviews, setMyReviews] = useState([]);
 
@@ -33,7 +33,7 @@ export default function ProfilePage({ user_id = "668943b3237bdcaa6cf59a62" }) {
     async function fetchUserReviews() {
       try {
         const reviews = await fetchReviewsByUser(user_id); // Wait for the promise to resolve
-        // console.log("reviews", reviews);
+        console.log("reviews", reviews);
 
         // Fetch dish and place data for each review
         const reviewsWithDetails = await Promise.all(
@@ -47,7 +47,7 @@ export default function ProfilePage({ user_id = "668943b3237bdcaa6cf59a62" }) {
           })
         );
 
-        // console.log(`reviewsWithDetails`, reviewsWithDetails);
+        console.log(`reviewsWithDetails`, reviewsWithDetails);
         setMyReviews(reviewsWithDetails);
       } catch (error) {
         console.error("Error fetching reviews by user:", error);
@@ -88,9 +88,11 @@ export default function ProfilePage({ user_id = "668943b3237bdcaa6cf59a62" }) {
           textAlign="left"
         >
           {myReviews.map((review) => (
-            <Box key={review._id} h="40px" bg="yellow.200" p={2} onClick={editReview}>
+            <Box key={review._id} h="40px" bg="yellow.200" p={2}>
+            <Link to="/editmakan">
               <Text>{review.dish.name} @ {review.place.name}</Text>
-            </Box>
+            </Link>
+          </Box>
           ))}
         </VStack>
       </Card>

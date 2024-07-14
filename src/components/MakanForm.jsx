@@ -11,7 +11,7 @@ import {
 import StarRating from "./StarRating";
 import { useState } from "react";
 
-export default function MakanForm({ formInput, setRating, index }) {
+export default function MakanForm({ formInput, setRating, index, originalFormState }) {
     const handleChange = (evt) => {
       const { name, value } = evt.target;
       // set the lifted form state
@@ -36,7 +36,7 @@ export default function MakanForm({ formInput, setRating, index }) {
       <Flex direction="column">
         <VStack>
           <FormLabel m="0">Dish name</FormLabel>
-          <Input name="name" onChange={handleChange} />
+          <Input name="name"  placeholder={originalFormState.originalFormState.name} onChange={handleChange} />
 
           <HStack>
             <VStack>
@@ -54,7 +54,7 @@ export default function MakanForm({ formInput, setRating, index }) {
                     <Input
                       name="price"
                       type="number"
-                      placeholder="Enter amount"
+                      placeholder= {originalFormState.originalFormState.price}
                       onChange={handleChange}
                     />
                   </InputGroup>
@@ -69,7 +69,7 @@ export default function MakanForm({ formInput, setRating, index }) {
           <FormLabel m="0">Comment</FormLabel>
           <Textarea
             name="comments"
-            placeholder="Comments here"
+            placeholder={originalFormState.originalFormState.comments}
             onChange={handleChange}
           />
         </VStack>

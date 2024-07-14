@@ -5,15 +5,15 @@ export async function createReview(formData) {
   return review;
 }
 
-// export async function getReview() {
-//   const reviewDetails = await reviewsAPI.getReview();
-//   // console.log(reviewDetails);
-//   return reviewDetails.data;
-// }
+export async function getReview(review_id) {
+  const reviewByID = await reviewsAPI.getReview(review_id);
+  // console.log('reviewByID', reviewByID);
+  return reviewByID.data;
+}
 
 export async function fetchReviewsByUser(user_id) {
   const reviewsByUser = await reviewsAPI.fetchReviewsByUser(user_id);
-  // console.log(`reviewsByUser `, reviewsByUser);
+  console.log(`reviewsByUser `, reviewsByUser);
   return reviewsByUser.data;
 }
 
