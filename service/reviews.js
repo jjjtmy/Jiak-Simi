@@ -13,7 +13,7 @@ export async function createReview(formData) {
 
 export async function fetchReviewsByUser(user_id) {
   const reviewsByUser = await reviewsAPI.fetchReviewsByUser(user_id);
-  console.log(`reviewsByUser `, reviewsByUser);
+  // console.log(`reviewsByUser `, reviewsByUser);
   return reviewsByUser.data;
 }
 

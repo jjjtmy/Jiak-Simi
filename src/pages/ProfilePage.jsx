@@ -20,7 +20,7 @@ import { getPlace } from "../../service/places";
 
 export default function ProfilePage({ user_id = "668943b3237bdcaa6cf59a62" }) {
   // TODO: flesh out handleLogOut and editReview
-  console.log(`user_id is`, user_id);
+  // console.log(`user_id is`, user_id);
 
   const handleLogOut = () => {};
   const editReview = () => {};
@@ -33,13 +33,8 @@ export default function ProfilePage({ user_id = "668943b3237bdcaa6cf59a62" }) {
     async function fetchUserReviews() {
       try {
         const reviews = await fetchReviewsByUser(user_id); // Wait for the promise to resolve
-        console.log("reviews", reviews);
+        // console.log("reviews", reviews);
 
-        const dishIDsFromReviews = reviews.map((review)=>(review.dish_id))
-        console.log(`dishIDsFromReviews`, dishIDsFromReviews)
-        
-        const dishNameFromDishIDs = await Promise.all(dishIDsFromReviews.map((dishID)=> getDish(dishID)))
-        console.log(`dishNameFromDishIDs`, dishNameFromDishIDs)
         // Fetch dish and place data for each review
         const reviewsWithDetails = await Promise.all(
           reviews.map(async (review) => {
@@ -52,7 +47,7 @@ export default function ProfilePage({ user_id = "668943b3237bdcaa6cf59a62" }) {
           })
         );
 
-        console.log(`reviewsWithDetails`, reviewsWithDetails);
+        // console.log(`reviewsWithDetails`, reviewsWithDetails);
         setMyReviews(reviewsWithDetails);
       } catch (error) {
         console.error("Error fetching reviews by user:", error);
