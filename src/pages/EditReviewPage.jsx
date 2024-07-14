@@ -145,7 +145,7 @@ const [formState, setFormState] = useState({originalFormState});
         {Array.from({ length: formCount }).map((_, index) => (
           <MakanForm
             key={index}
-            index={index}
+            index={0}
             formInput={{ formState, setFormState }}
             setRating={(rating) => setRating(rating)}
             originalFormState={{originalFormState}}
