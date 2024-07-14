@@ -124,6 +124,7 @@ const [formState, setFormState] = useState({originalFormState});
               name="place"
               placeholder= {originalPlaceState.place}
               onChange={handleChange}
+              readOnly
             />
           </VStack>
           <VStack>
@@ -132,6 +133,7 @@ const [formState, setFormState] = useState({originalFormState});
               name="cuisine"
               placeholder={originalPlaceState.cuisine}
               onChange={handleChange}
+              disabled
             >
               <option value="Local Food">Local Food</option>
               <option value="Korean">Korean</option>

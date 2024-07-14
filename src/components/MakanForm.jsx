@@ -36,7 +36,7 @@ export default function MakanForm({ formInput, setRating, index, originalFormSta
       <Flex direction="column">
         <VStack>
           <FormLabel m="0">Dish name</FormLabel>
-          <Input name="name"  placeholder={originalFormState.originalFormState.name} onChange={handleChange} />
+          <Input name="name"  placeholder={originalFormState ? originalFormState.originalFormState.name : "e.g. spaghetti"} onChange={handleChange} />
 
           <HStack>
             <VStack>
@@ -54,7 +54,7 @@ export default function MakanForm({ formInput, setRating, index, originalFormSta
                     <Input
                       name="price"
                       type="number"
-                      placeholder= {originalFormState.originalFormState.price}
+                      placeholder= {originalFormState ? originalFormState.originalFormState.price : "e.g. 5"}
                       onChange={handleChange}
                     />
                   </InputGroup>
@@ -69,7 +69,7 @@ export default function MakanForm({ formInput, setRating, index, originalFormSta
           <FormLabel m="0">Comment</FormLabel>
           <Textarea
             name="comments"
-            placeholder={originalFormState.originalFormState.comments}
+            placeholder={originalFormState ? originalFormState.originalFormState.comments : "e.g. so delicious!"}
             onChange={handleChange}
           />
         </VStack>
