@@ -1,8 +1,9 @@
 import * as dishesAPI from "../api/dishes";
 
 export async function getDish(dish_id) {
+  // console.log(`service getDish dish_id`, dish_id)
   const dishDetails = await dishesAPI.getDish(dish_id);
-  console.log(`dishDetails`, dishDetails);
+  // console.log(`dishDetails`, dishDetails);
   return dishDetails.data;
 }
 

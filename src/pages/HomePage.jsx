@@ -3,22 +3,13 @@ import Header from "../components/Header";
 import NavBar from "../components/NavBar";
 import FoodCard from "../components/FoodCard";
 import { fetchAllDishesIDs } from "../../service/dishes"
-//use dish id to get details for each card - hardcode the id. (0.5)
-//code fetchData to get all ids of dishes in db 
+
 //create resultpage/:cuisine - to filter by cusine below based on dishes 
 //cuisinepage - handle onclick to lead to resultpage/:cuisine 
-//profilepage - get reviews by userid. onclick - open editreview page
-//editreviewpage - map placeholder from db
 
 
 export default function HomePage() {
   const [cards, setCards] = useState([]);
-
-  // useEffect(() => {
-  //   const allCards = fetchAllDishesIDs();  //return array of dish IDs
-  //   console.log(`allCards`, allCards)
-  //   setCards(allCards);
-  // }, []);
 
   useEffect(() => {
     async function fetchData() {
