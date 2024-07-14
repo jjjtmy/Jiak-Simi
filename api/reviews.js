@@ -9,6 +9,14 @@ export async function createReview(formData) {
     "Invalid Form Data"
   );
 }
+export async function updateReview(formData) {
+  return await sendRequest(
+    `${BASE_URL}/update`,
+    "POST",
+    formData,
+    "Invalid Form Data"
+  );
+}
 
 export async function getReview(review_id) {
   return await sendRequest(

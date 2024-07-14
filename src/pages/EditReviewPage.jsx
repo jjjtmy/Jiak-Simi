@@ -9,7 +9,7 @@ import {
   Select,
   VStack,
 } from "@chakra-ui/react";
-import { createReview, getReview} from "../../service/reviews";
+import { updateReview, getReview} from "../../service/reviews";
 import { getToken } from "../../util/security";
 import { getDish } from "../../service/dishes";
 import { getPlace } from "../../service/places";
@@ -37,12 +37,20 @@ useEffect(() => {
       throw error; // Throw the error to be caught by the caller
     }
   }
-
-  fetchReviewByID()
-    .catch((error) => {
-      console.error("Error in fetchReviewByID:", error);
+  
+  //ensure this useffect runs first 
+  const executeFetch = async () => {
+    try {
+      await fetchReviewByID();
+      // Any subsequent code that should run after the fetchReviewByID completes can go here
+    } catch (error) {
+      console.error("Error in executeFetch:", error);
       // Handle error, e.g., show error message to user
-    });}, []);
+    }
+  };
+
+  executeFetch();
+    }, []);
 
 // update originalPlaceState and originalFormState
 const originalPlaceState = {
@@ -56,12 +64,12 @@ const originalFormState = {
   rating: makanToEdit.review?.rating || "",
 };
 // console.log('originalPlaceState',originalPlaceState)
-console.log('originalFormState', originalFormState)
+// console.log('originalFormState', originalFormState)
 
 
 const [formCount, setFormCount] = useState(1);
 const [placeState, setPlaceState] = useState({originalPlaceState});
-const [formState, setFormState] = useState({originalFormState});
+const [formState, setFormState] = useState([originalFormState]);
 
   function handleChange(evt) {
     setPlaceState((prevState) => ({
@@ -71,26 +79,30 @@ const [formState, setFormState] = useState({originalFormState});
     console.log(formState)
   }
 
-  async function handleSubmit(evt) {
+  async function handleUpdate(evt) {
     try {
       evt.preventDefault();
-
       // pass user token to back 
       const token = getToken();
       // todo: IF TOKEN IS NULL, redirect user to login (if not there will be a null userID review entry)
       console.log('token', token)
-      console.log(placeState)
+      //make form State and array 
+      console.log(`formState`, formState)
+      let updatedFormData=[]
+      updatedFormData.push(formState)
+      console.log(`updatedFormData`, updatedFormData)
+      console.log(`updated form state`, formState)
       // define the structure of the data to be passed
-      const newReview = {
+      const updatedReview = {
         token: token,
-        place: placeState.place,
-        cuisine: placeState.cuisine,
-        dishes: [...formState]
+        place: originalPlaceState.place,
+        cuisine: originalPlaceState.cuisine,
+        dishes: {comments:formState[0].comments, name: originalFormState.name, price: formState[0].price, rating: formState.rating}
       }
       
-      console.log(newReview)
+      console.log(`updatedReview`, updatedReview)
       // send it to service/api
-      const res = await createReview(newReview)
+      const res = await updateReview(updatedReview)
       console.log(res)
     } catch (e) {
       console.log(e);
@@ -98,10 +110,10 @@ const [formState, setFormState] = useState({originalFormState});
   }
  
 
-  function addMakanForm() {
-    setFormCount((prevFormCount) => prevFormCount + 1);
-    setFormState((prevState) => [...prevState, {}]);
-  }
+  // function addMakanForm() {
+  //   setFormCount((prevFormCount) => prevFormCount + 1);
+  //   setFormState((prevState) => [...prevState,{}]);
+  // }
 
   function setRating(rating) {
     setFormState((prevState) => {
@@ -114,7 +126,7 @@ const [formState, setFormState] = useState({originalFormState});
 
   return (
     <>
-      <FormControl as="form" onSubmit={handleSubmit}>
+      <FormControl as="form" onSubmit={handleUpdate}>
         <HStack>
           <VStack w="50%">
             <FormLabel>Place</FormLabel>
@@ -145,18 +157,18 @@ const [formState, setFormState] = useState({originalFormState});
         {Array.from({ length: formCount }).map((_, index) => (
           <MakanForm
             key={index}
-            index={0}
+            index={index}
             formInput={{ formState, setFormState }}
             setRating={(rating) => setRating(rating)}
             originalFormState={{originalFormState}}
           />
         ))}
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Update</Button>
       </FormControl>
 
       <footer>
-        <Button onClick={addMakanForm}>Add Form</Button>
-        
+        {/* <Button onClick={addMakanForm}>Add Form</Button>
+         */}
       </footer>
     </>
   );

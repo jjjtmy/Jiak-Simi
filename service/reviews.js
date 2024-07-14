@@ -5,6 +5,12 @@ export async function createReview(formData) {
   return review;
 }
 
+export async function updateReview(formData) {
+  const updatedReview = await reviewsAPI.updateReview(formData);
+  // console.log('updatedReview', updatedReview);
+  return updatedReview.data;
+}
+
 export async function getReview(review_id) {
   const reviewByID = await reviewsAPI.getReview(review_id);
   // console.log('reviewByID', reviewByID);

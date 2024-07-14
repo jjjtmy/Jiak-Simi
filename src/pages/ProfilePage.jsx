@@ -27,7 +27,6 @@ export default function ProfilePage({ user_id = "668943b3237bdcaa6cf59a62" }) {
 
   const [myReviews, setMyReviews] = useState([]);
 
-
   // fetch reviews by user_id
   useEffect(() => {
     async function fetchUserReviews() {

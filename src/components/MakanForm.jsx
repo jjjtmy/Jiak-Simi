@@ -12,31 +12,35 @@ import StarRating from "./StarRating";
 import { useState } from "react";
 
 export default function MakanForm({ formInput, setRating, index, originalFormState }) {
-    const handleChange = (evt) => {
-      const { name, value } = evt.target;
-      // set the lifted form state
-      formInput.setFormState((prevState) => {
-        // spread the current array of objects into the variable
-        const reviewState = [...prevState];
-        // target the current makan form using the index
-        reviewState[index] = {
-            // take the contents of this particular form and copy it
-          ...reviewState[index],
-          // change any new values
-          [name]: value,
-        };
-        console.log(reviewState)
-        // return the whole array of objects
-        return reviewState;
-      });
-    };
+  const handleChange = (evt) => {
+    const { name, value } = evt.target;
+    // set the lifted form state
+    formInput.setFormState((prevState) => {
+      // Ensure prevState is an array
+      const reviewState = Array.isArray(prevState) ? [...prevState] : [];
+      // target the current makan form using the index
+      reviewState[index] = {
+        // take the contents of this particular form and copy it
+        ...reviewState[index],
+        // change any new values
+        [name]: value,
+      };
+      console.log(`reviewState`,reviewState);
+      // return the whole array of objects
+      return reviewState;
+    });
+  };
 
   return (
     <>
       <Flex direction="column">
         <VStack>
           <FormLabel m="0">Dish name</FormLabel>
-          <Input name="name"  placeholder={originalFormState ? originalFormState.originalFormState.name : "e.g. spaghetti"} onChange={handleChange} />
+          <Input name="name"  
+          placeholder={originalFormState ? originalFormState.originalFormState.name : "e.g. spaghetti" }
+          value={originalFormState ? originalFormState.name : formInput.formState[index]?.name || ""}
+          onChange={handleChange}
+          readOnly={!!originalFormState}/> 
 
           <HStack>
             <VStack>
