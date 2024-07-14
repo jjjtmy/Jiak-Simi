@@ -4,9 +4,6 @@ import NavBar from "../components/NavBar";
 import FoodCard from "../components/FoodCard";
 import { fetchAllDishesIDs } from "../../service/dishes"
 
-//create resultpage/:cuisine - to filter by cusine below based on dishes 
-//cuisinepage - handle onclick to lead to resultpage/:cuisine 
-
 
 export default function HomePage() {
   const [cards, setCards] = useState([]);

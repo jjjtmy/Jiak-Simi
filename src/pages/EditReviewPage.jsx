@@ -14,7 +14,7 @@ import { getToken } from "../../util/security";
 import { getDish } from "../../service/dishes";
 import { getPlace } from "../../service/places";
 
-//TODO: pass review_id as ?prop from profile page
+//TODO: pass review_id as ?prop from profile page/ render as url params
 export default function EditReviewPage({_id ="66910e21706323a791caf41e"}) {
 
   //retrieve review by review_id and compile into makanToEdit
@@ -56,7 +56,7 @@ const originalFormState = {
   rating: makanToEdit.review?.rating || "",
 };
 // console.log('originalPlaceState',originalPlaceState)
-// console.log('originalFormState', originalFormState)
+console.log('originalFormState', originalFormState)
 
 
 const [formCount, setFormCount] = useState(1);
@@ -103,11 +103,9 @@ const [formState, setFormState] = useState({originalFormState});
     setFormState((prevState) => [...prevState, {}]);
   }
 
-  function setRating(rating, index) {
+  function setRating(rating) {
     setFormState((prevState) => {
-      const newState = [...prevState];
-      newState[index] = {
-        ...newState[index],
+      const newState = {...prevState,
         rating: rating,
       };
       return newState;
@@ -149,7 +147,7 @@ const [formState, setFormState] = useState({originalFormState});
             key={index}
             index={index}
             formInput={{ formState, setFormState }}
-            setRating={(rating) => setRating(rating, index)}
+            setRating={(rating) => setRating(rating)}
             originalFormState={{originalFormState}}
           />
         ))}

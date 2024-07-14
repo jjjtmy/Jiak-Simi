@@ -57,11 +57,9 @@ export default function AddReviewPage() {
     setFormState((prevState) => [...prevState, {}]);
   }
 
-  function setRating(rating, index) {
+  function setRating(rating) {
     setFormState((prevState) => {
-      const newState = [...prevState];
-      newState[index] = {
-        ...newState[index],
+      const newState = {...prevState,
         rating: rating,
       };
       return newState;
