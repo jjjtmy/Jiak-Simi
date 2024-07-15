@@ -3,10 +3,12 @@ import { TiThumbsUp } from "react-icons/ti";
 import { getDish } from "../../service/dishes";
 import { getPlace } from "../../service/places";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 
 export default function FoodCard({dish_id}) {
+  const navigate = useNavigate();
   const [reviewData, setReviewData] = useState(null);
   // console.log(`FoodCard dish_id`, dish_id);
   useEffect(() => {
@@ -30,6 +32,9 @@ export default function FoodCard({dish_id}) {
     fetchReviews();
   }, [dish_id]); //Ensure useEffect runs when dish_id changes
 
+  function handleClick() {
+    navigate(`/dishes/${dish_id}`)
+  }
 
   // Render loading state or placeholder if reviewData is null
   if (!reviewData) {
@@ -53,6 +58,8 @@ export default function FoodCard({dish_id}) {
 
   return (
     <Box
+      onClick={handleClick}
+      cursor={'pointer'}
       maxW="sm"
       borderWidth="1px"
       borderRadius="lg"

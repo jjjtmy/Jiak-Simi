@@ -19,3 +19,12 @@ export async function fetchAllDishesIDs() {
     "Error fetching all dishes IDs"
   );
 }
+
+export async function getReviewsForDish(dish_id) {
+  return await sendRequest(
+    `${BASE_URL}/${dish_id}/reviews`,
+    "GET",
+    null,
+    "Error fetching reviews",
+  );
+}
