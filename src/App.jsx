@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate, } from "react-router-dom";
 import { ChakraProvider, Button } from "@chakra-ui/react";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
@@ -10,6 +10,7 @@ import HomePage from "./pages/HomePage";
 import EditReviewPage from "./pages/EditReviewPage"
 
 import { getUser } from "../service/users";
+import DishDetailsPage from "./pages/DishDetailsPage";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -25,11 +26,9 @@ function App() {
   return (
     <ChakraProvider>
       <main className="App">
-        <Button onClick={() => setLoggedIn(!loggedIn)}>
-          {loggedIn ? "Logout" : "Login"}
-        </Button>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/dishes/:dish_id" element={<DishDetailsPage />} />
           <Route path="/login" element={user ? <Navigate to='/' /> : <LoginPage setUser={setUser} user={user}/>} />
           <Route path="/signup" element={user ? <Navigate to='/' /> : <SignUpPage setUser={setUser} user={user}/>} />
           <Route
