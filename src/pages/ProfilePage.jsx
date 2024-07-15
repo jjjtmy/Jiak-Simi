@@ -9,22 +9,30 @@ import {
   StackDivider,
 } from "@chakra-ui/react";
 import { FaUserAlt } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom"; 
+import { Link, useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { fetchReviewsByUser } from "../../service/reviews";
 import { getDish } from "../../service/dishes";
 import { getPlace } from "../../service/places";
-import { logOutUser } from "../../service/users"
+import { logOutUser } from "../../service/users";
 
 // profilepage - get reviews by userid. onclick - open editreview page
 // editreviewpage - map placeholder from db
 // TODO: retrieve user_id when logged in
 
-export default function ProfilePage({ user_id = "668943b3237bdcaa6cf59a62" }) {
-  // TODO: flesh out handleLogOut and editReview
+export default function ProfilePage({
+  user_id = "668943b3237bdcaa6cf59a62",
+  setUser,
+}) {
+  // TODO: flesh out editReview
   // console.log(`user_id is`, user_id);
 
-  const handleLogOut = () => {};
+  const navigate = useNavigate();
+  async function handleLogOut() {
+    const user = await logOutUser();
+    setUser(user);
+    navigate("/");
+  }
 
   const [myReviews, setMyReviews] = useState([]);
 
@@ -56,19 +64,6 @@ export default function ProfilePage({ user_id = "668943b3237bdcaa6cf59a62" }) {
 
     fetchUserReviews(); // Call the async function to fetch data
   }, [user_id]); // Add user_id as a dependency
-  
-
-
-export default function ProfilePage({setUser}) {
-  const navigate = useNavigate();
-  // TODO: flesh out handleLogOut and editReview
-  async function handleLogOut() {
-    const user = await logOutUser();
-    setUser(user);
-    navigate('/');
-  }
-
-  const editReview = () => {};
 
   return (
     <Box w="80vw" h="100vh">
@@ -102,10 +97,12 @@ export default function ProfilePage({setUser}) {
         >
           {myReviews.map((review) => (
             <Box key={review._id} h="40px" bg="yellow.200" p={2}>
-            <Link to="/editmakan">
-              <Text>{review.dish.name} @ {review.place.name}</Text>
-            </Link>
-          </Box>
+              <Link to="/editmakan">
+                <Text>
+                  {review.dish.name} @ {review.place.name}
+                </Text>
+              </Link>
+            </Box>
           ))}
         </VStack>
       </Card>
