@@ -6,7 +6,7 @@ export async function createReview(formData) {
     `${BASE_URL}/new`,
     "POST",
     formData,
-    "Invalid Form Data"
+    "Invalid Form Data",
   );
 }
 export async function updateReview(formData) {
@@ -14,7 +14,7 @@ export async function updateReview(formData) {
     `${BASE_URL}/update`,
     "POST",
     formData,
-    "Invalid Form Data"
+    "Invalid Form Data",
   );
 }
 
@@ -23,13 +23,15 @@ export async function getReview(review_id) {
     `${BASE_URL}/reviewid/${review_id}`,
     "GET",
     null,
-    "No review found"
-  )}
+    "No review found",
+  );
+}
 
-  export async function fetchReviewsByUser(user_id) {
+export async function fetchReviewsByUser(user_id) {
   return await sendRequest(
     `${BASE_URL}/userid/${user_id}`,
     "GET",
     null,
-    "No review found"
-  )}
+    "No review found",
+  );
+}

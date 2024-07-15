@@ -11,7 +11,12 @@ import {
 import StarRating from "./StarRating";
 import { useState } from "react";
 
-export default function MakanForm({ formInput, setRating, index, originalFormState }) {
+export default function MakanForm({
+  formInput,
+  setRating,
+  index,
+  originalFormState,
+}) {
   const handleChange = (evt) => {
     const { name, value } = evt.target;
     // set the lifted form state
@@ -25,7 +30,7 @@ export default function MakanForm({ formInput, setRating, index, originalFormSta
         // change any new values
         [name]: value,
       };
-      console.log(`reviewState`,reviewState);
+      console.log(`reviewState`, reviewState);
       // return the whole array of objects
       return reviewState;
     });
@@ -36,11 +41,21 @@ export default function MakanForm({ formInput, setRating, index, originalFormSta
       <Flex direction="column">
         <VStack>
           <FormLabel m="0">Dish name</FormLabel>
-          <Input name="name"  
-          placeholder={originalFormState ? originalFormState.originalFormState.name : "e.g. spaghetti" }
-          value={originalFormState ? originalFormState.name : formInput.formState[index]?.name || ""}
-          onChange={handleChange}
-          readOnly={!!originalFormState}/> 
+          <Input
+            name="name"
+            placeholder={
+              originalFormState
+                ? originalFormState.originalFormState.name
+                : "e.g. spaghetti"
+            }
+            value={
+              originalFormState
+                ? originalFormState.name
+                : formInput.formState[index]?.name || ""
+            }
+            onChange={handleChange}
+            readOnly={!!originalFormState}
+          />
 
           <HStack>
             <VStack>
@@ -58,7 +73,11 @@ export default function MakanForm({ formInput, setRating, index, originalFormSta
                     <Input
                       name="price"
                       type="number"
-                      placeholder= {originalFormState ? originalFormState.originalFormState.price : "e.g. 5"}
+                      placeholder={
+                        originalFormState
+                          ? originalFormState.originalFormState.price
+                          : "e.g. 5"
+                      }
                       onChange={handleChange}
                     />
                   </InputGroup>
@@ -73,7 +92,11 @@ export default function MakanForm({ formInput, setRating, index, originalFormSta
           <FormLabel m="0">Comment</FormLabel>
           <Textarea
             name="comments"
-            placeholder={originalFormState ? originalFormState.originalFormState.comments : "e.g. so delicious"}
+            placeholder={
+              originalFormState
+                ? originalFormState.originalFormState.comments
+                : "e.g. so delicious"
+            }
             onChange={handleChange}
           />
         </VStack>

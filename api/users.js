@@ -6,7 +6,7 @@ export async function signUp(userData) {
     `${BASE_URL}/signup`,
     "POST",
     userData,
-    "Invalid Sign Up"
+    "Invalid Sign Up",
   );
 }
 
@@ -20,14 +20,14 @@ export async function loginUser(userData) {
     `${BASE_URL}/login`,
     "POST",
     userData,
-    "Invalid User"
+    "Invalid User",
   );
 }
 
 export async function logOutUser(token, userData) {
   const res = await fetch(`${BASE_URL}/logout`, {
     method: "POST",
-    headers: { "Content-Type": "application/json", "Authorization": token },
+    headers: { "Content-Type": "application/json", Authorization: token },
     body: JSON.stringify(userData),
   });
   if (res.ok) {

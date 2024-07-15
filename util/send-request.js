@@ -1,4 +1,9 @@
-export default async function sendRequest(url, method = "GET", payload = null, errMsg) {
+export default async function sendRequest(
+  url,
+  method = "GET",
+  payload = null,
+  errMsg,
+) {
   const options = { method };
   if (payload) {
     options.headers = { "Content-Type": "application/json" };

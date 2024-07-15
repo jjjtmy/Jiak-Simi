@@ -2,7 +2,7 @@ import { Box, Icon, Heading, Link } from "@chakra-ui/react";
 import { IoIosArrowBack } from "react-icons/io";
 import { useEffect, useState } from "react";
 import FoodCard from "../components/FoodCard";
-import { fetchAllDishesIDs } from "../../service/dishes"; 
+import { fetchAllDishesIDs } from "../../service/dishes";
 
 export default function CuisinePage() {
   const [cards, setCards] = useState([]);
@@ -24,7 +24,12 @@ export default function CuisinePage() {
   return (
     <>
       <div style={styles.page}>
-        <Box display="flex" flexDirection="column" alignItems="flex-start" p={4}>
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="flex-start"
+          p={4}
+        >
           <Link to="/home">
             <Icon as={IoIosArrowBack} boxSize={9} color="orange" />
           </Link>

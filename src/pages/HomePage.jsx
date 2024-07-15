@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import NavBar from "../components/NavBar";
 import FoodCard from "../components/FoodCard";
-import { fetchAllDishesIDs } from "../../service/dishes"
-
+import { fetchAllDishesIDs } from "../../service/dishes";
 
 export default function HomePage() {
   const [cards, setCards] = useState([]);
@@ -22,7 +21,6 @@ export default function HomePage() {
 
     fetchData(); // Call the async function to fetch data
   }, []); // Empty dependency array ensures this effect runs only once on component mount
-
 
   return (
     <>
