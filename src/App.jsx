@@ -33,7 +33,7 @@ function App() {
           <Route
             path="/myprofile"
             element={
-              user ? <ProfilePage /> : <Navigate to="/login" replace={true} />
+              user ? <ProfilePage setUser={setUser} /> : <Navigate to="/login" replace={true} />
             }
           />
           <Route

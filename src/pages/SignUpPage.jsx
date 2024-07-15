@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
-export default function SignUpPage({setUser, user}) {
+export default function SignUpPage({setUser}) {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(!show);
@@ -62,7 +62,7 @@ export default function SignUpPage({setUser, user}) {
     }
   }
 
-  async function handleSubmit(evt, set) {
+  async function handleSubmit(evt) {
     try {
       evt.preventDefault();
       
