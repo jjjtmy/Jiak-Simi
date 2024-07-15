@@ -2,14 +2,13 @@ import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import NavBar from "../components/NavBar";
 import FoodCard from "../components/FoodCard";
-import { fetchAllDishesIDs } from "../../service/dishes"
+import { fetchAllDishesIDs } from "../../service/dishes";
 //use dish id to get details for each card - hardcode the id. (0.5)
-//code fetchData to get all ids of dishes in db 
-//create resultpage/:cuisine - to filter by cusine below based on dishes 
-//cuisinepage - handle onclick to lead to resultpage/:cuisine 
+//code fetchData to get all ids of dishes in db
+//create resultpage/:cuisine - to filter by cusine below based on dishes
+//cuisinepage - handle onclick to lead to resultpage/:cuisine
 //profilepage - get reviews by userid. onclick - open editreview page
 //editreviewpage - map placeholder from db
-
 
 export default function HomePage() {
   const [cards, setCards] = useState([]);
@@ -34,7 +33,6 @@ export default function HomePage() {
 
     fetchData(); // Call the async function to fetch data
   }, []); // Empty dependency array ensures this effect runs only once on component mount
-
 
   return (
     <>

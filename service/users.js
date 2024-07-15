@@ -30,10 +30,13 @@ export function getUser() {
 export async function logOutUser() {
   const token = getToken();
   if (token) {
-    const res = await usersAPI.logOutUser(token, JSON.parse(atob(token.split(".")[1])).payload); 
+    const res = await usersAPI.logOutUser(
+      token,
+      JSON.parse(atob(token.split(".")[1])).payload,
+    );
     removeToken(); // Remove token from FE
     console.log(`user '${res}' logged out`);
-    return res
+    return res;
   }
-  return null
+  return null;
 }

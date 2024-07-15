@@ -24,7 +24,12 @@ export default function CuisinePage() {
   return (
     <>
       <div style={styles.page}>
-        <Box display="flex" flexDirection="column" alignItems="flex-start" p={4}>
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="flex-start"
+          p={4}
+        >
           <Link to="/home">
             <Icon as={IoIosArrowBack} boxSize={9} color="orange" />
           </Link>

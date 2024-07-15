@@ -6,24 +6,26 @@ import {
   Icon,
   VStack,
   StackDivider,
+  Button,
 } from "@chakra-ui/react";
 import { FaUserAlt } from "react-icons/fa";
-import { logOutUser } from "../../service/users"
+import { logOutUser } from "../../service/users";
 import { useNavigate } from "react-router-dom";
 
-export default function ProfilePage({setUser}) {
+export default function ProfilePage({ setUser }) {
   const navigate = useNavigate();
   // TODO: flesh out handleLogOut and editReview
   async function handleLogOut() {
     const user = await logOutUser();
     setUser(user);
-    navigate('/');
+    navigate("/");
   }
 
   const editReview = () => {};
 
   return (
     <Box w="80vw" h="100vh">
+      <Button onClick={() => navigate(-1)}>Back</Button>
       <Box mt="3" textAlign="center">
         <Card>
           <CardHeader

@@ -6,14 +6,6 @@ export async function createReview(formData) {
     `${BASE_URL}/new`,
     "POST",
     formData,
-    "Invalid Form Data"
+    "Invalid Form Data",
   );
 }
-
-export async function getReview() {
-  return await sendRequest(
-    `${BASE_URL}/reviews`,
-    "GET",
-    null,
-    "No review found"
-  )}

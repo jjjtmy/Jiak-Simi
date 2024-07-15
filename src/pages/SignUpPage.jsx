@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
-export default function SignUpPage({setUser}) {
+export default function SignUpPage({ setUser }) {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(!show);
@@ -33,7 +33,7 @@ export default function SignUpPage({setUser}) {
   }
 
   function checkPassword() {
-    var formData = {...formState};
+    var formData = { ...formState };
     if (!formData.password) {
       return true;
     }
@@ -50,36 +50,36 @@ export default function SignUpPage({setUser}) {
   }
 
   function hashPassword() {
-    var formData = {...formState};
-    console.log('hashpassword form data', formData)
+    var formData = { ...formState };
+    console.log("hashpassword form data", formData);
     if (formData.password) {
       console.log(formData.password);
       var hash = hashData(formData.password);
       formData.password = hash.hash;
       formData.salt = hash.salt;
       formData.iterations = hash.iterations;
-      return formData
+      return formData;
     }
   }
 
   async function handleSubmit(evt) {
     try {
       evt.preventDefault();
-      
+
       const formData = hashPassword();
-      console.log('handlesubmit formData', formData);
+      console.log("handlesubmit formData", formData);
       const userData = await signUp(formData); // returns success : newUser
-      console.log('userData signup', userData);
+      console.log("userData signup", userData);
       // if signup is successful,
-      const token = userData.data
+      const token = userData.data;
       if (userData.success === false) {
-        return userData.data // this will be an error probably
+        return userData.data; // this will be an error probably
       }
-      storeToken(token)
+      storeToken(token);
       // modify user state before redirecting so my useEffect can change state in app
-      setUser(token)
-      console.log('userData.data', token)
-      navigate('/');
+      setUser(token);
+      console.log("userData.data", token);
+      navigate("/");
     } catch (e) {
       console.log(e);
     }

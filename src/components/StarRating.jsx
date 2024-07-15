@@ -29,8 +29,9 @@ export default function StarRating({ rating, setRating, count, size }) {
               cursor={"pointer"}
               size={size || 20}
               transition="color 200ms"
-              onClick={() => {setRating(ratingValue)
-                console.log(ratingValue)
+              onClick={() => {
+                setRating(ratingValue);
+                console.log(ratingValue);
               }}
             />
           </Box>

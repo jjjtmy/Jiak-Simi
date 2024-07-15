@@ -8,6 +8,13 @@ export async function getDish(dish_id) {
 
 export async function fetchAllDishesIDs() {
   const allDishIDs = await dishesAPI.fetchAllDishesIDs();
-  console.log(`allDishIDs`, allDishIDs)
-  return allDishIDs //returns array of each collection in dishes model including _id
+  console.log(`allDishIDs`, allDishIDs);
+  return allDishIDs; //returns array of each collection in dishes model including _id
+}
+
+export async function getReviewsForDish(dish_id) {
+  const reviewDetails = await dishesAPI.getReviewsForDish(dish_id);
+  console.log("reviewDetails", reviewDetails);
+
+  return reviewDetails;
 }

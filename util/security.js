@@ -8,7 +8,7 @@ const MAX_ITERATIONS = 10; // exclusive
 
 export function hashData(data) {
   var salt = CryptoJS.lib.WordArray.random(SALT_LENGTH).toString(
-    CryptoJS.enc.Base64
+    CryptoJS.enc.Base64,
   );
   var iterations = getRndInteger(MIN_ITERATIONS, MAX_ITERATIONS);
   console.log(data, salt, iterations);
