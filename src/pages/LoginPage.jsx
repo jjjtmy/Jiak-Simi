@@ -13,12 +13,13 @@ import {
   FormControl,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import myImg from "../assets/jiaksimi1.png";
 import { hashDataWithSaltRounds, storeToken } from "../../util/security";
 import { getSaltAndIterations, loginUser } from "../../service/users";
 
-export default function LoginPage() {
+export default function LoginPage({setUser, user}) {
+  const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(!show);
 
@@ -49,8 +50,10 @@ export default function LoginPage() {
         console.log(formData)
         const token = await loginUser(formData);
         // Store token in localStorage
-        storeToken(token);   
-      
+        storeToken(token); 
+        setUser(token)
+        navigate('/');
+        
       } catch(e) {
         console.log(e);
       }

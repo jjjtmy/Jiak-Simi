@@ -9,11 +9,12 @@ import {
   StackDivider,
 } from "@chakra-ui/react";
 import { FaUserAlt } from "react-icons/fa";
-import { Link } from "react-router-dom"; 
+import { Link, useNavigate } from "react-router-dom"; 
 import NavBar from "../components/NavBar";
 import { fetchReviewsByUser } from "../../service/reviews";
 import { getDish } from "../../service/dishes";
 import { getPlace } from "../../service/places";
+import { logOutUser } from "../../service/users"
 
 // profilepage - get reviews by userid. onclick - open editreview page
 // editreviewpage - map placeholder from db
@@ -55,6 +56,19 @@ export default function ProfilePage({ user_id = "668943b3237bdcaa6cf59a62" }) {
 
     fetchUserReviews(); // Call the async function to fetch data
   }, [user_id]); // Add user_id as a dependency
+  
+
+
+export default function ProfilePage({setUser}) {
+  const navigate = useNavigate();
+  // TODO: flesh out handleLogOut and editReview
+  async function handleLogOut() {
+    const user = await logOutUser();
+    setUser(user);
+    navigate('/');
+  }
+
+  const editReview = () => {};
 
   return (
     <Box w="80vw" h="100vh">
