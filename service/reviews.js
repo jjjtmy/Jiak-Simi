@@ -22,4 +22,3 @@ export async function fetchReviewsByUser(user_id) {
   console.log(`reviewsByUser `, reviewsByUser);
   return reviewsByUser.data;
 }
-

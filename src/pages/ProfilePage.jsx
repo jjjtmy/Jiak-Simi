@@ -52,7 +52,7 @@ export default function ProfilePage({
             const placeData = await getPlace(dishData.place_id, review.dish_id);
             // console.log(`placeData`, placeData);
             return { ...review, dish: dishData, place: placeData };
-          })
+          }),
         );
 
         console.log(`reviewsWithDetails`, reviewsWithDetails);
