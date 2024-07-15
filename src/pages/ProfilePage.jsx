@@ -14,33 +14,25 @@ import NavBar from "../components/NavBar";
 import { fetchReviewsByUser } from "../../service/reviews";
 import { getDish } from "../../service/dishes";
 import { getPlace } from "../../service/places";
-import { logOutUser } from "../../service/users";
+import { logOutUser, getUser } from "../../service/users";
 
-// profilepage - get reviews by userid. onclick - open editreview page
-// editreviewpage - map placeholder from db
-// TODO: retrieve user_id when logged in
-
-export default function ProfilePage({
-  user_id = "668943b3237bdcaa6cf59a62",
-  setUser,
-}) {
-  // TODO: flesh out editReview
-  // console.log(`user_id is`, user_id);
+export default function ProfilePage({ setUser }) {
+  const [userID, setUserID] = useState(getUser);
 
   const navigate = useNavigate();
   async function handleLogOut() {
-    const user = await logOutUser();
+    const user = await logOutUser(); //returns username
     setUser(user);
     navigate("/");
   }
 
   const [myReviews, setMyReviews] = useState([]);
 
-  // fetch reviews by user_id
   useEffect(() => {
     async function fetchUserReviews() {
       try {
-        const reviews = await fetchReviewsByUser(user_id); // Wait for the promise to resolve
+        console.log(`userID`, userID);
+        const reviews = await fetchReviewsByUser(userID);
         console.log("reviews", reviews);
 
         // Fetch dish and place data for each review
@@ -62,8 +54,8 @@ export default function ProfilePage({
       }
     }
 
-    fetchUserReviews(); // Call the async function to fetch data
-  }, [user_id]); // Add user_id as a dependency
+    fetchUserReviews();
+  }, []);
 
   return (
     <Box w="80vw" h="100vh">
