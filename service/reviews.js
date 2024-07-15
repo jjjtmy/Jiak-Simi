@@ -7,7 +7,7 @@ export async function createReview(formData) {
 
 export async function updateReview(formData) {
   const updatedReview = await reviewsAPI.updateReview(formData);
-  // console.log('updatedReview', updatedReview);
+  console.log("updatedReview", updatedReview);
   return updatedReview.data;
 }
 
@@ -22,4 +22,3 @@ export async function fetchReviewsByUser(user_id) {
   console.log(`reviewsByUser `, reviewsByUser);
   return reviewsByUser.data;
 }
-

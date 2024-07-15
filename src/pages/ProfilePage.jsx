@@ -9,7 +9,7 @@ import {
   StackDivider,
 } from "@chakra-ui/react";
 import { FaUserAlt } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { fetchReviewsByUser } from "../../service/reviews";
 import { getDish } from "../../service/dishes";
@@ -32,9 +32,9 @@ export default function ProfilePage({ setUser }) {
   useEffect(() => {
     async function fetchUserReviews() {
       try {
-        console.log(`userID`, userID);
+        // console.log(`userID`, userID);
         const reviews = await fetchReviewsByUser(userID);
-        console.log("reviews", reviews);
+        // console.log("reviews", reviews);
 
         // Fetch dish and place data for each review
         const reviewsWithDetails = await Promise.all(
@@ -48,7 +48,7 @@ export default function ProfilePage({ setUser }) {
           })
         );
 
-        console.log(`reviewsWithDetails`, reviewsWithDetails);
+        // console.log(`reviewsWithDetails`, reviewsWithDetails);
         setMyReviews(reviewsWithDetails);
       } catch (error) {
         console.error("Error fetching reviews by user:", error);
@@ -89,12 +89,16 @@ export default function ProfilePage({ setUser }) {
           textAlign="left"
         >
           {myReviews.map((review) => (
-            <Box key={review._id} h="40px" bg="yellow.200" p={2}>
-              <Link to="/editmakan">
-                <Text>
-                  {review.dish.name} @ {review.place.name}
-                </Text>
-              </Link>
+            <Box
+              key={review._id}
+              h="40px"
+              bg="yellow.200"
+              p={2}
+              onClick={() => navigate(`/editmakan/${review._id}`)}
+            >
+              <Text>
+                {review.dish.name} @ {review.place.name}
+              </Text>
             </Box>
           ))}
         </VStack>

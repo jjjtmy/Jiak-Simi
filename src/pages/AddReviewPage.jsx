@@ -11,8 +11,10 @@ import {
 } from "@chakra-ui/react";
 import { createReview } from "../../service/reviews";
 import { getToken } from "../../util/security";
+import { useNavigate } from "react-router-dom";
 
 export default function AddReviewPage() {
+  const navigate = useNavigate();
   const [formCount, setFormCount] = useState(1);
   const [placeState, setPlaceState] = useState({});
   const [formState, setFormState] = useState([{}]);
@@ -22,35 +24,35 @@ export default function AddReviewPage() {
       ...prevState,
       [evt.target.name]: evt.target.value,
     }));
-    console.log(formState)
+    console.log(formState);
   }
 
   async function handleSubmit(evt) {
     try {
       evt.preventDefault();
 
-      // pass user token to back 
+      // pass user token to back
       const token = getToken();
       // todo: IF TOKEN IS NULL, redirect user to login (if not there will be a null userID review entry)
-      console.log('token', token)
-      console.log(placeState)
+      console.log("token", token);
+      console.log(placeState);
       // define the structure of the data to be passed
       const newReview = {
         token: token,
         place: placeState.place,
         cuisine: placeState.cuisine,
-        dishes: [...formState]
-      }
-      
-      console.log(newReview)
+        dishes: [...formState],
+      };
+
+      console.log(newReview);
       // send it to service/api
-      const res = await createReview(newReview)
-      console.log(res)
+      const res = await createReview(newReview);
+      console.log(res);
+      navigate(`/myprofile`);
     } catch (e) {
       console.log(e);
     }
   }
- 
 
   function addMakanForm() {
     setFormCount((prevFormCount) => prevFormCount + 1);
