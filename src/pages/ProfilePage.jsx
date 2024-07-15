@@ -8,10 +8,18 @@ import {
   StackDivider,
 } from "@chakra-ui/react";
 import { FaUserAlt } from "react-icons/fa";
+import { logOutUser } from "../../service/users"
+import { useNavigate } from "react-router-dom";
 
-export default function ProfilePage() {
+export default function ProfilePage({setUser}) {
+  const navigate = useNavigate();
   // TODO: flesh out handleLogOut and editReview
-  const handleLogOut = () => {};
+  async function handleLogOut() {
+    const user = await logOutUser();
+    setUser(user);
+    navigate('/');
+  }
+
   const editReview = () => {};
 
   return (
