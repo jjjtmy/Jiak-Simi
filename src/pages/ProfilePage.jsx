@@ -14,10 +14,11 @@ import NavBar from "../components/NavBar";
 import { fetchReviewsByUser } from "../../service/reviews";
 import { getDish } from "../../service/dishes";
 import { getPlace } from "../../service/places";
-import { logOutUser, getUser } from "../../service/users";
+import { logOutUser, getUser, getUsername } from "../../service/users";
 
 export default function ProfilePage({ setUser }) {
   const [userID, setUserID] = useState(getUser);
+  const [username, setUsername] = useState(getUsername);
 
   const navigate = useNavigate();
   async function handleLogOut() {
@@ -68,7 +69,7 @@ export default function ProfilePage({ setUser }) {
             borderRadius={20}
           >
             <Icon as={FaUserAlt} boxSize={90} color="lightblue" />
-            <Text as="b">@mistertamchiak</Text>
+            <Text as="b">{username}</Text>
             <Text as="u" onClick={handleLogOut}>
               Log Out
             </Text>
