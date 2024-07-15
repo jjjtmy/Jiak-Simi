@@ -9,10 +9,26 @@ export async function createReview(formData) {
     "Invalid Form Data"
   );
 }
-
-export async function getReview() {
+export async function updateReview(formData) {
   return await sendRequest(
-    `${BASE_URL}/reviews`,
+    `${BASE_URL}/update`,
+    "POST",
+    formData,
+    "Invalid Form Data"
+  );
+}
+
+export async function getReview(review_id) {
+  return await sendRequest(
+    `${BASE_URL}/reviewid/${review_id}`,
+    "GET",
+    null,
+    "No review found"
+  )}
+
+  export async function fetchReviewsByUser(user_id) {
+  return await sendRequest(
+    `${BASE_URL}/userid/${user_id}`,
     "GET",
     null,
     "No review found"

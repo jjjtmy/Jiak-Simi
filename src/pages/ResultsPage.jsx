@@ -2,7 +2,7 @@ import { Box, Icon, Heading, Link } from "@chakra-ui/react";
 import { IoIosArrowBack } from "react-icons/io";
 import { useEffect, useState } from "react";
 import FoodCard from "../components/FoodCard";
-import { fetchAllDishesIDs } from "../../service/dishes"; //TODO: code this
+import { fetchAllDishesIDs } from "../../service/dishes"; 
 
 export default function CuisinePage() {
   const [cards, setCards] = useState([]);

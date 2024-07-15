@@ -7,6 +7,8 @@ import SignUpPage from "./pages/SignUpPage";
 import AddReviewPage from "./pages/AddReviewPage";
 import ProfilePage from "./pages/ProfilePage";
 import HomePage from "./pages/HomePage";
+import EditReviewPage from "./pages/EditReviewPage"
+
 import { getUser } from "../service/users";
 
 function App() {
@@ -40,6 +42,12 @@ function App() {
             path="/addmakan"
             element={
               user ? <AddReviewPage /> : <Navigate to="/login" replace={true}/>
+            }
+          />
+                    <Route
+            path="/editmakan"
+            element={
+              loggedIn ? <EditReviewPage /> : <Navigate to="/login" />
             }
           />
         </Routes>

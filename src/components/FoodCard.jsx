@@ -8,18 +8,18 @@ import { useEffect, useState } from "react";
 
 export default function FoodCard({dish_id}) {
   const [reviewData, setReviewData] = useState(null);
-  console.log(`FoodCard dish_id`, dish_id);
+  // console.log(`FoodCard dish_id`, dish_id);
   useEffect(() => {
     async function fetchReviews() {
       try {
        
         const dishData = await getDish(dish_id);
-        console.log(`FoodCard dishData`, dishData)
+        // console.log(`FoodCard dishData`, dishData)
         const placeData = await getPlace(dishData.place_id, dish_id);
-        console.log( `FoodCard placeData`, placeData)
+        // console.log( `FoodCard placeData`, placeData)
 
         const combinedData = { dishData, placeData };
-        console.log(`FINAL DATA IS ${JSON.stringify(combinedData)}`);
+        // console.log(`FINAL DATA IS ${JSON.stringify(combinedData)}`);
         setReviewData(combinedData);
       } catch (error) {
         console.error("Failed to fetch reviews", error);
