@@ -11,6 +11,7 @@ import HomePage from "./pages/HomePage";
 import EditReviewPage from "./pages/EditReviewPage";
 import { getUser } from "../service/users";
 import DishDetailsPage from "./pages/DishDetailsPage";
+import ResultsPage from "./pages/ResultsPage";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -28,7 +29,9 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/cuisine" element={<CuisinePage />}></Route>
+          <Route path="/results/:cuisine" element={<ResultsPage />} />
           <Route path="/dishes/:dish_id" element={<DishDetailsPage />} />
+
           <Route
             path="/login"
             element={
