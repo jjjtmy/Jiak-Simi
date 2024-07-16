@@ -20,6 +20,7 @@ function App() {
   useEffect(() => {
     if (user) {
       setUser(getUser());
+      setLoggedIn(true);
     }
   }, [user]);
 
@@ -31,6 +32,7 @@ function App() {
           <Route path="/cuisine" element={<CuisinePage />}></Route>
           <Route path="/results/:cuisine" element={<ResultsPage />} />
           <Route path="/dishes/:dish_id" element={<DishDetailsPage />} />
+
 
           <Route
             path="/login"
@@ -69,9 +71,11 @@ function App() {
             }
           />
           <Route
-            path="/editmakan"
+            path="/editmakan/:review_id"
             element={loggedIn ? <EditReviewPage /> : <Navigate to="/login" />}
           />
+              
+              
         </Routes>
       </main>
     </ChakraProvider>

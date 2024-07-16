@@ -22,18 +22,34 @@ export async function loginUser(userData) {
 
 export function getUser() {
   const token = getToken();
-  // If there's a token, return the user in the payload, otherwise return null
+  // If there's a token, return the userid in the payload, otherwise return null
+  console.log(`usertoken`, token);
+  console.log(`payload`, JSON.parse(atob(token.split(".")[1])).payload);
 
   return token ? JSON.parse(atob(token.split(".")[1])).payload.user_id : null;
+}
+
+export function getUsername() {
+  const token = getToken();
+  // If there's a token, return the username in the payload, otherwise return null
+  console.log(
+    `payload`,
+    JSON.parse(atob(token.split(".")[1])).payload.username
+  );
+
+  return token ? JSON.parse(atob(token.split(".")[1])).payload.username : null;
 }
 
 export async function logOutUser() {
   const token = getToken();
   if (token) {
-    const res = await usersAPI.logOutUser(token, JSON.parse(atob(token.split(".")[1])).payload); 
+    const res = await usersAPI.logOutUser(
+      token,
+      JSON.parse(atob(token.split(".")[1])).payload
+    );
     removeToken(); // Remove token from FE
     console.log(`user '${res}' logged out`);
-    return res
+    return res;
   }
-  return null
+  return null;
 }

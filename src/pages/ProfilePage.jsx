@@ -9,39 +9,32 @@ import {
   StackDivider,
 } from "@chakra-ui/react";
 import { FaUserAlt } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { fetchReviewsByUser } from "../../service/reviews";
 import { getDish } from "../../service/dishes";
 import { getPlace } from "../../service/places";
-import { logOutUser } from "../../service/users";
+import { logOutUser, getUser, getUsername } from "../../service/users";
 
-// profilepage - get reviews by userid. onclick - open editreview page
-// editreviewpage - map placeholder from db
-// TODO: retrieve user_id when logged in
-
-export default function ProfilePage({
-  user_id = "668943b3237bdcaa6cf59a62",
-  setUser,
-}) {
-  // TODO: flesh out editReview
-  // console.log(`user_id is`, user_id);
+export default function ProfilePage({ setUser }) {
+  const [userID, setUserID] = useState(getUser);
+  const [username, setUsername] = useState(getUsername);
 
   const navigate = useNavigate();
   async function handleLogOut() {
-    const user = await logOutUser();
+    const user = await logOutUser(); //returns username
     setUser(user);
     navigate("/");
   }
 
   const [myReviews, setMyReviews] = useState([]);
 
-  // fetch reviews by user_id
   useEffect(() => {
     async function fetchUserReviews() {
       try {
-        const reviews = await fetchReviewsByUser(user_id); // Wait for the promise to resolve
-        console.log("reviews", reviews);
+        // console.log(`userID`, userID);
+        const reviews = await fetchReviewsByUser(userID);
+        // console.log("reviews", reviews);
 
         // Fetch dish and place data for each review
         const reviewsWithDetails = await Promise.all(
@@ -55,15 +48,15 @@ export default function ProfilePage({
           })
         );
 
-        console.log(`reviewsWithDetails`, reviewsWithDetails);
+        // console.log(`reviewsWithDetails`, reviewsWithDetails);
         setMyReviews(reviewsWithDetails);
       } catch (error) {
         console.error("Error fetching reviews by user:", error);
       }
     }
 
-    fetchUserReviews(); // Call the async function to fetch data
-  }, [user_id]); // Add user_id as a dependency
+    fetchUserReviews();
+  }, []);
 
   return (
     <Box w="80vw" h="100vh">
@@ -76,7 +69,7 @@ export default function ProfilePage({
             borderRadius={20}
           >
             <Icon as={FaUserAlt} boxSize={90} color="lightblue" />
-            <Text as="b">@mistertamchiak</Text>
+            <Text as="b">{username}</Text>
             <Text as="u" onClick={handleLogOut}>
               Log Out
             </Text>
@@ -96,12 +89,16 @@ export default function ProfilePage({
           textAlign="left"
         >
           {myReviews.map((review) => (
-            <Box key={review._id} h="40px" bg="yellow.200" p={2}>
-              <Link to="/editmakan">
-                <Text>
-                  {review.dish.name} @ {review.place.name}
-                </Text>
-              </Link>
+            <Box
+              key={review._id}
+              h="40px"
+              bg="yellow.200"
+              p={2}
+              onClick={() => navigate(`/editmakan/${review._id}`)}
+            >
+              <Text>
+                {review.dish.name} @ {review.place.name}
+              </Text>
             </Box>
           ))}
         </VStack>
