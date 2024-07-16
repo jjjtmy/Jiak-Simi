@@ -2,49 +2,29 @@ import { Box, Icon, Heading, Link } from "@chakra-ui/react";
 import { IoIosArrowBack } from "react-icons/io";
 import { useEffect, useState } from "react";
 import FoodCard from "../components/FoodCard";
-import { getplaceIDbyCuisine } from "../../service/places";
-import { getDishIDByPlaceID } from "../../service/dishes";
-import { useParams } from "react-router-dom";
+import { fetchAllDishesIDs } from "../../service/dishes"; 
 
-export default function ResultsPage() {
-  const { cuisine } = useParams(); //get cuisine
+export default function CuisinePage() {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    async function filterByCuisine() {
+    async function fetchCards() {
       try {
-        const allPlaceIDs = await getplaceIDbyCuisine(cuisine); //returns array
-        console.log(`allPlaceIDs`, allPlaceIDs);
-
-        const allDishIDs = await Promise.all(
-          allPlaceIDs.map(async (placeID) => {
-            console.log(`eachplaceID`, placeID._id);
-            const dishIDs = await getDishIDByPlaceID(placeID._id);
-            return dishIDs;
-          })
-        );
-
-        console.log(allDishIDs);
-
-        setCards(allDishIDs);
+        const allCards = await fetchAllDishesIDs();
+        setCards(allCards);
       } catch (error) {
         console.error("Failed to fetch dishes:", error);
         // Handle error state or retry mechanism
       }
     }
 
-    filterByCuisine();
+    fetchCards();
   }, []);
 
   return (
     <>
       <div style={styles.page}>
-        <Box
-          display="flex"
-          flexDirection="column"
-          alignItems="flex-start"
-          p={4}
-        >
+        <Box display="flex" flexDirection="column" alignItems="flex-start" p={4}>
           <Link to="/home">
             <Icon as={IoIosArrowBack} boxSize={9} color="orange" />
           </Link>

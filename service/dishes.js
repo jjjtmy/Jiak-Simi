@@ -15,11 +15,6 @@ export async function fetchAllDishesIDs() {
 export async function getReviewsForDish(dish_id) {
   const reviewDetails = await dishesAPI.getReviewsForDish(dish_id);
   console.log("reviewDetails", reviewDetails);
-  return reviewDetails;
-}
 
-export async function getDishIDByPlaceID(place_id) {
-  const dishID = await dishesAPI.getDishIDByPlaceID(place_id);
-  console.log("dishID array in servicedishes", dishID);
-  return dishID;
+  return reviewDetails;
 }
