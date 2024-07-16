@@ -9,6 +9,7 @@ import {
   Input,
   Select,
   VStack,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import { updateReview, getReview } from "../../service/reviews";
 import { getToken } from "../../util/security";
@@ -23,6 +24,7 @@ export default function EditReviewPage() {
   const [formState, setFormState] = useState({});
   const [originalPlaceState, setOriginalPlaceState] = useState({});
   const [originalFormState, setOriginalFormState] = useState({});
+  const [error, setError] = useState(null);
 
   //retrieve review by review_id and compile into makanToEdit
   useEffect(() => {
@@ -96,7 +98,7 @@ export default function EditReviewPage() {
           comment: formState[0].comments,
           name: originalFormState.name,
           price: formState[0].price,
-          rating: formState.rating,
+          rating: formState[0].rating,
         },
       };
 
@@ -105,16 +107,17 @@ export default function EditReviewPage() {
       const res = await updateReview(updatedReview);
       console.log(res);
       navigate(`/myprofile`);
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.error("Edit Makan error:", error);
+      setError("Sorry cannot edit your makan. Please try again.");
     }
   }
 
   function setRating(rating) {
-    setFormState((prevState) => {
-      const newState = { ...prevState, rating: rating };
-      return newState;
-    });
+    setFormState((prevState) => ({
+      ...prevState,
+      rating: rating,
+    }));
   }
 
   if (!formState || !originalPlaceState) {
@@ -123,7 +126,7 @@ export default function EditReviewPage() {
 
   return (
     <>
-      <FormControl as="form" onSubmit={handleUpdate}>
+      <FormControl as="form" onSubmit={handleUpdate} isInvalid={error}>
         <HStack>
           <VStack w="50%">
             <FormLabel>Place</FormLabel>
@@ -155,6 +158,11 @@ export default function EditReviewPage() {
           setRating={(rating) => setRating(rating)}
           originalFormState={originalFormState}
         />
+        {error && (
+          <FormErrorMessage mt={2} color="red.500">
+            {error}
+          </FormErrorMessage>
+        )}
         <Button type="submit">Update</Button>
       </FormControl>
     </>

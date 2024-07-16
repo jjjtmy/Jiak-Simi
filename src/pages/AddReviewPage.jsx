@@ -8,6 +8,7 @@ import {
   Input,
   Select,
   VStack,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import { createReview } from "../../service/reviews";
 import { getToken } from "../../util/security";
@@ -18,6 +19,7 @@ export default function AddReviewPage() {
   const [formCount, setFormCount] = useState(1);
   const [placeState, setPlaceState] = useState({});
   const [formState, setFormState] = useState([{}]);
+  const [error, setError] = useState(null);
 
   function handleChange(evt) {
     setPlaceState((prevState) => ({
@@ -49,8 +51,9 @@ export default function AddReviewPage() {
       const res = await createReview(newReview);
       console.log(res);
       navigate(`/myprofile`);
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.error("Add Makan error:", error);
+      setError("Sorry cannot submit your makan. Please try again.");
     }
   }
 
@@ -72,7 +75,7 @@ export default function AddReviewPage() {
 
   return (
     <>
-      <FormControl as="form" onSubmit={handleSubmit}>
+      <FormControl as="form" onSubmit={handleSubmit} isInvalid={error}>
         <HStack>
           <VStack w="50%">
             <FormLabel>Place</FormLabel>
@@ -106,6 +109,12 @@ export default function AddReviewPage() {
             setRating={(rating) => setRating(rating, index)}
           />
         ))}
+
+        {error && (
+          <FormErrorMessage mt={2} color="red.500">
+            {error}
+          </FormErrorMessage>
+        )}
         <Button type="submit">Submit</Button>
       </FormControl>
 

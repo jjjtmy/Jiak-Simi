@@ -11,6 +11,7 @@ import {
   Box,
   Image,
   FormControl,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -18,12 +19,13 @@ import myImg from "../assets/jiaksimi1.png";
 import { hashDataWithSaltRounds, storeToken } from "../../util/security";
 import { getSaltAndIterations, loginUser } from "../../service/users";
 
-export default function LoginPage({setUser, user}) {
+export default function LoginPage({ setUser, user }) {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(!show);
 
   const [formState, setFormState] = useState({});
+  const [error, setError] = useState(null);
 
   function handleChange(evt) {
     setFormState((prevState) => ({
@@ -33,31 +35,35 @@ export default function LoginPage({setUser, user}) {
   }
 
   async function handleLogin(evt) {
-    try { 
-        evt.preventDefault();
+    try {
+      evt.preventDefault();
 
-        // Create a copy of formState
-        const formData = {...formState};
-        console.log(formData)
-        // get user salt and iterations from database
-        const saltAndIterations  = await getSaltAndIterations(formData.username);
-        const {salt, iterations} = saltAndIterations.data
-        console.log(saltAndIterations);
-        console.log(saltAndIterations.data)
-        console.log(salt, iterations)
-        const hashedPassword = hashDataWithSaltRounds(formData.password, salt, iterations);
-        formData.password = hashedPassword;
-        console.log(formData)
-        const token = await loginUser(formData);
-        // Store token in localStorage
-        storeToken(token); 
-        setUser(token)
-        navigate('/');
-        
-      } catch(e) {
-        console.log(e);
-      }
-}
+      // Create a copy of formState
+      const formData = { ...formState };
+      console.log(formData);
+      // get user salt and iterations from database
+      const saltAndIterations = await getSaltAndIterations(formData.username);
+      const { salt, iterations } = saltAndIterations.data;
+      console.log(saltAndIterations);
+      console.log(saltAndIterations.data);
+      console.log(salt, iterations);
+      const hashedPassword = hashDataWithSaltRounds(
+        formData.password,
+        salt,
+        iterations
+      );
+      formData.password = hashedPassword;
+      console.log(formData);
+      const token = await loginUser(formData);
+      // Store token in localStorage
+      storeToken(token);
+      setUser(token);
+      navigate("/");
+    } catch (error) {
+      console.error("Log in error:", error);
+      setError("Your username or password correct?");
+    }
+  }
 
   return (
     <main>
@@ -73,7 +79,7 @@ export default function LoginPage({setUser, user}) {
           </CardHeader>
 
           <CardBody>
-            <FormControl as="form" onSubmit={handleLogin}>
+            <FormControl as="form" onSubmit={handleLogin} isInvalid={error}>
               <Input
                 name="username"
                 id="username"
@@ -96,24 +102,25 @@ export default function LoginPage({setUser, user}) {
                   </Button>
                 </InputRightElement>
               </InputGroup>
-              <Button
-                mt="12"
-                w="full"
-                colorScheme="blue"
-                type="submit"
-              >
+              {error && (
+                <FormErrorMessage mt={2} color="red.500">
+                  {error}
+                </FormErrorMessage>
+              )}
+
+              <Button mt="12" w="full" colorScheme="blue" type="submit">
                 Login
               </Button>
             </FormControl>
           </CardBody>
           <CardFooter>
-          <Text mb='4' alignContent="left">
-            Not a member?
-            <Link to="/signup" color="blue">
-              {" "}
-              Sign up
-            </Link>
-          </Text>
+            <Text mb="4" alignContent="left">
+              Not a member?
+              <Link to="/signup" color="blue">
+                {" "}
+                Sign up
+              </Link>
+            </Text>
           </CardFooter>
         </Card>
       </Box>
