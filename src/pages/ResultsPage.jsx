@@ -9,10 +9,13 @@ import { useParams } from "react-router-dom";
 export default function ResultsPage() {
   const { cuisine } = useParams(); //get cuisine
   const [cards, setCards] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     async function filterByCuisine() {
       try {
+        setIsLoading(true);
         const allPlaceIDs = await getplaceIDbyCuisine(cuisine); //returns array
         console.log(`allPlaceIDs`, allPlaceIDs);
 
@@ -28,13 +31,19 @@ export default function ResultsPage() {
 
         setCards(allDishIDs);
       } catch (error) {
-        console.error("Failed to fetch dishes:", error);
-        // Handle error state or retry mechanism
+        console.error("Error fetching dishes by cuisines:", error);
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
       }
     }
 
     filterByCuisine();
   }, []);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (cards == 0) return <div>No makan in this cuisine yet!</div>;
 
   return (
     <>

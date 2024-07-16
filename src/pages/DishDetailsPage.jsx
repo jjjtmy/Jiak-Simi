@@ -24,7 +24,7 @@ export default function DishDetailsPage() {
       setReviews(dishReviews);
     } catch (error) {
       console.error("Error fetching dish details:", error);
-      setError(error.message);
+      setError("This dish looks chaodah already. Try another one!");
     } finally {
       setIsLoading(false);
     }
