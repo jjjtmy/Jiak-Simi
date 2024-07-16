@@ -32,7 +32,7 @@ export default function ResultsPage() {
         setCards(allDishIDs);
       } catch (error) {
         console.error("Error fetching dishes by cuisines:", error);
-        setError(error.message);
+        setError("Something chaodah already, try another cuisine!");
       } finally {
         setIsLoading(false);
       }
