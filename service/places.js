@@ -7,6 +7,6 @@ export async function getPlace(place_id, dish_id) {
 }
 export async function getplaceIDbyCuisine(cuisine) {
   const placeDetails = await placesAPI.getplaceIDbyCuisine(cuisine);
-  console.log(`placeDetails`, placeDetails);
+  // console.log(`placeDetails`, placeDetails);
   return placeDetails;
 }

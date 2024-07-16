@@ -96,7 +96,7 @@ export default function EditReviewPage() {
           comment: formState[0].comments,
           name: originalFormState.name,
           price: formState[0].price,
-          rating: formState.rating,
+          rating: formState[0].rating,
         },
       };
 
@@ -111,10 +111,10 @@ export default function EditReviewPage() {
   }
 
   function setRating(rating) {
-    setFormState((prevState) => {
-      const newState = { ...prevState, rating: rating };
-      return newState;
-    });
+    setFormState((prevState) => ({
+      ...prevState,
+      rating: rating,
+    }));
   }
 
   if (!formState || !originalPlaceState) {

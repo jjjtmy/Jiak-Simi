@@ -1,7 +1,7 @@
 import * as reviewsAPI from "../api/reviews";
 
 export async function createReview(formData) {
-  const review = await reviewsAPI.createReview(formData);
+  // const review = await reviewsAPI.createReview(formData);
   return review;
 }
 
@@ -19,6 +19,6 @@ export async function getReview(review_id) {
 
 export async function fetchReviewsByUser(user_id) {
   const reviewsByUser = await reviewsAPI.fetchReviewsByUser(user_id);
-  console.log(`reviewsByUser `, reviewsByUser);
+  // console.log(`reviewsByUser `, reviewsByUser);
   return reviewsByUser.data;
 }
