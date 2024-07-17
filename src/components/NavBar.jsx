@@ -42,7 +42,6 @@ const NavBar = () => {
             <Link to="/">
               <Icon as={IoIosArrowBack} boxSize={9} color="orange" />
             </Link>
-            {/* <Text > */}
             <Heading as="h1" size="lg" ml={3} mb={4}>
               {getPageName(location.pathname)}
             </Heading>
@@ -70,7 +69,6 @@ const styles = {
     backgroundColor: "#fff",
     borderTop: "1px solid #ccc",
     padding: "10px",
-    // zIndex: 1000, // Ensure it stays on top of other content,
   },
   pageInfo: {
     position: "absolute",
