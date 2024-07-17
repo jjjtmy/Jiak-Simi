@@ -50,12 +50,12 @@ export default function EditReviewPage() {
         setMakanToEdit(makanToEdit); // Return the fetched data
 
         const originalFormState = {
-          comment: makanToEdit.review?.comment || "",
+          comments: makanToEdit.review?.comment || "",
           name: makanToEdit.dish?.name || "",
           price: makanToEdit.review?.price || "",
           rating: makanToEdit.review?.rating || "",
         };
-        // console.log("originalFormState", originalFormState);
+        console.log("originalFormState", originalFormState);
         const originalPlaceState = {
           place: makanToEdit.place?.name || "",
           cuisine: makanToEdit.place?.cuisine || "",
@@ -95,10 +95,10 @@ export default function EditReviewPage() {
         place: originalPlaceState.place,
         cuisine: originalPlaceState.cuisine,
         dishes: {
-          comment: formState[0].comments,
+          comment: formState.comments,
           name: originalFormState.name,
-          price: formState[0].price,
-          rating: formState[0].rating,
+          price: formState.price,
+          rating: formState.rating,
         },
       };
 
@@ -113,16 +113,22 @@ export default function EditReviewPage() {
     }
   }
 
-  function setRating(rating) {
+  function updateMakanForm(newdata) {
+    console.log(`reachedupdatemakanform`);
+    console.log(`newdata`, newdata);
+    console.log(`formState`, formState);
     setFormState((prevState) => ({
-      ...prevState,
-      rating: rating,
+      ...prevState, // Spread previous state
+      ...newdata,
     }));
   }
 
-  if (!formState || !originalPlaceState) {
-    return <p>Loading...</p>;
-  }
+  // function setRating(rating) {
+  //   setFormState((prevState) => ({
+  //     ...prevState,
+  //     rating: rating,
+  //   }));
+  // }
 
   return (
     <>
@@ -152,11 +158,9 @@ export default function EditReviewPage() {
           </VStack>
         </HStack>
         <MakanForm
-          key={0}
-          index={0}
-          formInput={{ formState, setFormState }}
-          setRating={(rating) => setRating(rating)}
-          originalFormState={originalFormState}
+          dish={originalFormState}
+          updateForm={(newData) => updateMakanForm(newData)}
+          isEdit={true}
         />
         {error && (
           <FormErrorMessage mt={2} color="red.500">

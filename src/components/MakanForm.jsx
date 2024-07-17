@@ -11,10 +11,13 @@ import {
 } from "@chakra-ui/react";
 import { DeleteIcon, StarIcon } from "@chakra-ui/icons";
 
-export default function MakanForm({ dish, updateForm, onDelete }) {
+export default function MakanForm({ dish, updateForm, onDelete, isEdit }) {
+  console.log(`dish`, dish);
   const handleChange = (evt) => {
     const { name, value } = evt.target;
-    updateForm({ [name]: value });
+    console.log(evt);
+    let UPDATED = updateForm({ [name]: value });
+    console.log(`UPDATED IS`, UPDATED);
   };
 
   const handleRatingChange = (newRating) => {
@@ -27,18 +30,20 @@ export default function MakanForm({ dish, updateForm, onDelete }) {
         <FormLabel fontSize="sm" mb={1}>
           Dish name
         </FormLabel>
-        <IconButton
-          icon={<DeleteIcon color="red"/>}
-          size="sm"
-          colorScheme="white"
-          onClick={onDelete}
-          aria-label="Delete Makan Form"
-        />
+        {isEdit && (
+          <IconButton
+            icon={<DeleteIcon color="red" />}
+            size="sm"
+            colorScheme="white"
+            onClick={onDelete}
+            aria-label="Delete Makan Form"
+          />
+        )}
       </HStack>
       <Input
         name="name"
-        placeholder="Enter dish name. (as menu)"
-        value={dish.name || ""}
+        placeholder={dish.name || "Enter dish name. (as menu)}"}
+        readOnly={isEdit}
         onChange={handleChange}
         size="sm"
       />
@@ -54,8 +59,7 @@ export default function MakanForm({ dish, updateForm, onDelete }) {
           <Input
             name="price"
             type="number"
-            placeholder="e.g. 5"
-            value={dish.price || ""}
+            placeholder={dish.price || "e.g. 5"}
             onChange={handleChange}
           />
         </InputGroup>
@@ -73,8 +77,7 @@ export default function MakanForm({ dish, updateForm, onDelete }) {
 
       <Textarea
         name="comments"
-        placeholder="Enter comments"
-        value={dish.comments || ""}
+        placeholder={dish.comments || "Enter comments"}
         onChange={handleChange}
         size="sm"
       />
