@@ -47,25 +47,10 @@ export default function ResultsPage() {
 
   return (
     <>
-      <div style={styles.page}>
-        <Box
-          display="flex"
-          flexDirection="column"
-          alignItems="flex-start"
-          p={4}
-        >
-          <Link to="/home">
-            <Icon as={IoIosArrowBack} boxSize={9} color="orange" />
-          </Link>
-          <Heading as="h1" size="lg" mt={4}>
-            Cuisine
-          </Heading>
-        </Box>
-        <div style={styles.grid}>
-          {cards.map((card) => (
-            <FoodCard key={card._id} dish_id={card._id} style={styles.card} />
-          ))}
-        </div>
+      <div style={styles.grid}>
+        {cards.map((card) => (
+          <FoodCard key={card._id} dish_id={card._id} style={styles.card} />
+        ))}
       </div>
     </>
   );

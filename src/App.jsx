@@ -12,6 +12,7 @@ import EditReviewPage from "./pages/EditReviewPage";
 import { getUser } from "../service/users";
 import DishDetailsPage from "./pages/DishDetailsPage";
 import ResultsPage from "./pages/ResultsPage";
+import NavBar from "./components/NavBar";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -27,12 +28,12 @@ function App() {
   return (
     <ChakraProvider>
       <main className="App">
+        <NavBar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/cuisine" element={<CuisinePage />}></Route>
           <Route path="/results/:cuisine" element={<ResultsPage />} />
           <Route path="/dishes/:dish_id" element={<DishDetailsPage />} />
-
 
           <Route
             path="/login"
@@ -74,8 +75,6 @@ function App() {
             path="/editmakan/:review_id"
             element={loggedIn ? <EditReviewPage /> : <Navigate to="/login" />}
           />
-              
-              
         </Routes>
       </main>
     </ChakraProvider>

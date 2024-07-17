@@ -32,18 +32,6 @@ export default function CuisinePage() {
 
   return (
     <div style={styles.page}>
-      <Box display="flex" flexDirection="column" alignItems="flex-start" p={4}>
-        <Link to="/home">
-          <Icon as={IoIosArrowBack} boxSize={9} color="orange" />
-        </Link>
-        <Heading as="h1" size="lg" mt={4}>
-          Cuisine
-        </Heading>
-        <Text as="h3" fontSize="lg">
-          One only pls
-        </Text>
-      </Box>
-
       <Stack spacing={2} width="90%" ml="5%" mt={4}>
         <RadioCard
           cuisine="Local Food"
