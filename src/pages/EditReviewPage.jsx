@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import MakanForm from "../components/MakanForm";
 import {
+  Container,
   Button,
   FormControl,
   FormLabel,
@@ -10,11 +11,16 @@ import {
   Select,
   VStack,
   FormErrorMessage,
+  useColorModeValue,
+  Box,
+  IconButton,
+  Heading,
 } from "@chakra-ui/react";
 import { updateReview, getReview } from "../../service/reviews";
 import { getToken } from "../../util/security";
 import { getDish } from "../../service/dishes";
 import { getPlace } from "../../service/places";
+import { ArrowBackIcon } from "@chakra-ui/icons";
 
 export default function EditReviewPage() {
   const { review_id } = useParams();
@@ -25,6 +31,9 @@ export default function EditReviewPage() {
   const [originalPlaceState, setOriginalPlaceState] = useState({});
   const [originalFormState, setOriginalFormState] = useState({});
   const [error, setError] = useState(null);
+
+  const bgColor = useColorModeValue("gray.50", "gray.900");
+  const cardBgColor = useColorModeValue("white", "gray.800");
 
   //retrieve review by review_id and compile into makanToEdit
   useEffect(() => {
@@ -55,7 +64,7 @@ export default function EditReviewPage() {
           price: makanToEdit.review?.price || "",
           rating: makanToEdit.review?.rating || "",
         };
-        console.log("originalFormState", originalFormState);
+        // console.log("originalFormState", originalFormState);
         const originalPlaceState = {
           place: makanToEdit.place?.name || "",
           cuisine: makanToEdit.place?.cuisine || "",
@@ -85,11 +94,6 @@ export default function EditReviewPage() {
       console.log("token", token);
       //make form State and array
       console.log(`formState`, formState);
-      // let updatedFormData = [];
-      // updatedFormData.push(formState);
-      // console.log(`updatedFormData`, updatedFormData);
-      // console.log(`updated form state`, formState);
-      // define the structure of the data to be passed
       const updatedReview = {
         token: token,
         place: originalPlaceState.place,
@@ -114,61 +118,68 @@ export default function EditReviewPage() {
   }
 
   function updateMakanForm(newdata) {
-    console.log(`reachedupdatemakanform`);
-    console.log(`newdata`, newdata);
-    console.log(`formState`, formState);
     setFormState((prevState) => ({
       ...prevState, // Spread previous state
       ...newdata,
     }));
   }
 
-  // function setRating(rating) {
-  //   setFormState((prevState) => ({
-  //     ...prevState,
-  //     rating: rating,
-  //   }));
-  // }
-
   return (
-    <>
-      <FormControl as="form" onSubmit={handleUpdate} isInvalid={error}>
-        <HStack>
-          <VStack w="50%">
-            <FormLabel>Place</FormLabel>
-            <Input
-              name="place"
-              placeholder={originalPlaceState.place}
-              readOnly
-            />
-          </VStack>
-          <VStack>
-            <FormLabel>Cuisine</FormLabel>
-            <Select
-              name="cuisine"
-              placeholder={originalPlaceState.cuisine}
-              disabled
-            >
-              <option value="Local Food">Local Food</option>
-              <option value="Korean">Korean</option>
-              <option value="Japanese">Japanese</option>
-              <option value="Italian">Italian</option>
-              <option value="Fast Food">Fast Food</option>
-            </Select>
-          </VStack>
-        </HStack>
-        <MakanForm
-          dish={originalFormState}
-          updateForm={(newData) => updateMakanForm(newData)}
-          isEdit={true}
+    <Box minHeight="100vh" bg={bgColor} pt={4} mt={10}>
+      <Container maxW="container.md">
+        <IconButton
+          icon={<ArrowBackIcon />}
+          onClick={() => navigate(-1)}
+          position="absolute"
+          top={4}
+          left={4}
+          aria-label="Go back"
         />
-        {error && (
-          <FormErrorMessage mt={2} color="red.500">
-            {error}
-          </FormErrorMessage>
-        )}
-        <Button type="submit">Update</Button>
-      </FormControl>
-    </>
+        <Heading as="h1" size="xl" textAlign="center" mb={6}>
+          Edit Makan
+        </Heading>
+        <FormControl as="form" onSubmit={handleUpdate} isInvalid={error}>
+          <HStack>
+            <VStack spacing={4} align="stretch" mb={6}>
+              <FormLabel>Place</FormLabel>
+              <Input
+                name="place"
+                placeholder={originalPlaceState.place}
+                readOnly
+              />
+            </VStack>
+            <VStack>
+              <FormLabel>Cuisine</FormLabel>
+              <Select
+                name="cuisine"
+                placeholder={originalPlaceState.cuisine}
+                disabled
+              >
+                <option value="Local Food">Local Food</option>
+                <option value="Korean">Korean</option>
+                <option value="Japanese">Japanese</option>
+                <option value="Italian">Italian</option>
+                <option value="Fast Food">Fast Food</option>
+              </Select>
+            </VStack>
+          </HStack>
+          <Box bg={cardBgColor} p={4} borderRadius="md" shadow="md">
+            <MakanForm
+              dish={originalFormState}
+              updateForm={(newData) => updateMakanForm(newData)}
+              isEdit={true}
+            />
+          </Box>
+          {error && (
+            <FormErrorMessage mt={2} color="red.500">
+              {error}
+            </FormErrorMessage>
+          )}
+          <Button type="submit" colorScheme="blue" width="full" mb={4}>
+            Update Review
+          </Button>
+        </FormControl>
+      </Container>
+    </Box>
   );
 }

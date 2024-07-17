@@ -30,7 +30,7 @@ export default function MakanForm({ dish, updateForm, onDelete, isEdit }) {
         <FormLabel fontSize="sm" mb={1}>
           Dish name
         </FormLabel>
-        {isEdit && (
+        {!isEdit && (
           <IconButton
             icon={<DeleteIcon color="red" />}
             size="sm"
