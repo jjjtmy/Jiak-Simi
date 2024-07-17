@@ -1,4 +1,4 @@
-import { Box, Image, Text, Icon } from "@chakra-ui/react";
+import { Box, Image, Text, Icon, HStack } from "@chakra-ui/react";
 import { TiThumbsUp } from "react-icons/ti";
 import { getDish } from "../../service/dishes";
 import { getPlace } from "../../service/places";
@@ -68,34 +68,29 @@ export default function FoodCard({ dish_id }) {
       {/* TODO: pull image from google */}
       <Image objectFit="cover" h="120px" w="100%" />
 
-      <Box h="90px">
-        <Box p="1">
-          <Box d="flex" alignItems="baseline" fontWeight="bold">
-            {reviewData.dishData?.name ?? "??"}
-          </Box>
-          <Box d="flex" alignItems="baseline">
-            <Text>
-              {reviewData.placeData?.name
-                ? `@${reviewData.placeData.name}`
-                : "??"}
-            </Text>
-          </Box>
-        </Box>
-
-        <Box display="flex" justifyContent="space-around" fontWeight="bold">
-          <Text>
-            {reviewData.dishData?.latest_price != null
-              ? `$${reviewData.dishData.latest_price}`
-              : "??"}
-          </Text>
-          <Box display="flex" justifyContent="space-around" fontWeight="bold">
-            <Text fontWeight="bold" color="orange">
+      <Box h="90px"> {/* this is the main box? */}
+          <Box display="flex" flexDir="column" justifyContent="flex-start" alignItems="flex-start" fontWeight="bold" fontSize={10} color="grey" marginInline="4" pt="2">
+            <HStack>
+              <Icon as={TiThumbsUp} boxSize={3} />
+              <Text fontWeight="bold">
               {reviewData.dishData?.avg_rating != null
                 ? reviewData.dishData.avg_rating
+                : "??"} / 5
+              </Text>
+              </HStack>
+          <Box fontWeight="bold" alignSelf="flex-start" fontSize="14px" color="black">
+            {reviewData.dishData?.name ?? "??"}
+          </Box>
+            <Text fontSize="8px" color="grey">
+              {reviewData.placeData?.name
+                ? `${reviewData.placeData.name}`
                 : "??"}
             </Text>
-            <Icon as={TiThumbsUp} boxSize={8} color="orange" />
-          </Box>
+            <Text color="green.400" fontSize="14px">
+            {reviewData.dishData?.latest_price != null
+              ? `$${reviewData.dishData.latest_price}`
+              : "??"}.00
+          </Text>
         </Box>
       </Box>
     </Box>
