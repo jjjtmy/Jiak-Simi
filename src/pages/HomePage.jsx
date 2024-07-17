@@ -25,7 +25,7 @@ export default function HomePage() {
   return (
     <Container w="100vw" d="flex" justifyContent="space-evenly" mt="4">
       <Link to="/cuisine">
-        <Button h="1.75rem" size="sm" colorScheme="orange">
+        <Button h="1.75rem" size="sm" colorScheme="orange" mb="2">
           Search By Cuisine
         </Button>
       </Link>

@@ -50,7 +50,7 @@ export default function MakanForm({
 
   return (
     <>
-      <Flex direction="column">
+      <Flex direction="column" mt={3} lineHeight={2}>
         <VStack>
           <FormLabel m="0">Dish name</FormLabel>
           <Input
@@ -67,39 +67,36 @@ export default function MakanForm({
             readOnly={!!originalFormState}
           />
 
-          <HStack>
-            <VStack>
-              <HStack>
-                <VStack align="stretch" mr="4">
-                  <FormLabel m="0">Price</FormLabel>
-                  <InputGroup>
-                    <InputLeftElement
-                      pointerEvents="none"
-                      color="gray.300"
-                      fontSize="1.2em"
-                    >
-                      $
-                    </InputLeftElement>
-                    <Input
-                      name="price"
-                      type="number"
-                      placeholder={
-                        originalFormState ? originalFormState.price : "e.g. 5"
-                      }
-                      onChange={handleChange}
-                    />
-                  </InputGroup>
-                </VStack>
-                <VStack align="stretch">
-                  <FormLabel mb="0">Rating</FormLabel>
-                  <StarRating
-                    name="rating"
-                    setRating={(rating) => handleFormChange({ rating })}
-                  />
-                </VStack>
-              </HStack>
+          <HStack align="stretch" width="100%" ml={0} spacing={7}>
+            <VStack align="left">
+              <FormLabel m="0">Price</FormLabel>
+              <InputGroup>
+                <InputLeftElement
+                  pointerEvents="none"
+                  color="gray.300"
+                  fontSize="1.2em"
+                >
+                  $
+                </InputLeftElement>
+                <Input
+                  name="price"
+                  type="number"
+                  placeholder={
+                    originalFormState ? originalFormState.price : "e.g. 5"
+                  }
+                  onChange={handleChange}
+                />
+              </InputGroup>
+            </VStack>
+            <VStack align="stretch">
+              <FormLabel mb={1}>Rating</FormLabel>
+              <StarRating
+                name="rating"
+                setRating={(rating) => handleFormChange({ rating })}
+              />
             </VStack>
           </HStack>
+
           <FormLabel m="0">Comment</FormLabel>
           <Textarea
             name="comments"

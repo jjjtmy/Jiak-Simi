@@ -58,7 +58,7 @@ export default function ProfilePage({ setUser }) {
   }, []);
 
   return (
-    <Box w="80vw" h="100vh">
+    <Box w="100vw" h="100vh">
       <Box mt="3" textAlign="center">
         <Card>
           <CardHeader
@@ -76,7 +76,7 @@ export default function ProfilePage({ setUser }) {
         </Card>
       </Box>
 
-      <Card mt="8" textAlign="left" borderRadius={20} p={3}>
+      <Card mt="8" textAlign="left" mx="auto" borderRadius={20} p={3} w="80vw">
         <Text as="b" fontSize="2xl" align="left">
           My Makan
         </Text>

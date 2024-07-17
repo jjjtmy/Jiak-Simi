@@ -125,9 +125,9 @@ export default function EditReviewPage() {
   }
 
   return (
-    <>
+    <div style={styles.form}>
       <FormControl as="form" onSubmit={handleUpdate} isInvalid={error}>
-        <HStack>
+        <HStack align="stretch" width="100%" ml={0} spacing={7}>
           <VStack w="50%">
             <FormLabel>Place</FormLabel>
             <Input
@@ -163,8 +163,19 @@ export default function EditReviewPage() {
             {error}
           </FormErrorMessage>
         )}
-        <Button type="submit">Update</Button>
+        <Button type="submit" p={2} mt={3} h={6}>
+          Update
+        </Button>
       </FormControl>
-    </>
+    </div>
   );
 }
+
+const styles = {
+  form: {
+    align: "center",
+    padding: "20px",
+    width: "100vw",
+    height: "100vh",
+  },
+};

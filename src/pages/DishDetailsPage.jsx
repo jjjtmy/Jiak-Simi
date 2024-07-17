@@ -2,7 +2,14 @@ import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { getDish, getReviewsForDish } from "../../service/dishes";
 import { getPlace } from "../../service/places";
-import { Box, Container, HStack, VStack } from "@chakra-ui/react";
+import {
+  Flex,
+  Box,
+  Container,
+  HStack,
+  VStack,
+  Spinner,
+} from "@chakra-ui/react";
 
 export default function DishDetailsPage() {
   const { dish_id } = useParams();
@@ -34,13 +41,19 @@ export default function DishDetailsPage() {
     fetchData();
   }, [fetchData]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) {
+    return (
+      <Flex align="center" justify="center" height="30vh" width="100vw">
+        <Spinner size="xl" />
+      </Flex>
+    );
+  }
   if (error) return <div>Error: {error}</div>;
   if (!dishData || !placeData) return <div>No data available</div>;
 
   return (
     <div>
-      <Container h="100vh">
+      <Container h="100vh" w="100vw">
         <Box h="50%">IMG HERE</Box>
         <Box h="50%">
           <VStack>

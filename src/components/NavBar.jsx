@@ -33,28 +33,35 @@ const NavBar = () => {
   };
 
   return (
-    <Flex as="nav" style={styles.navbar}>
-      <Box style={styles.pageInfo}>
-        {isHomePage ? (
-          <Image boxSize="70px" margin="12px" src={myImg}></Image>
-        ) : (
-          <>
-            <Link to="/">
-              <Icon as={IoIosArrowBack} boxSize={9} color="orange" />
-            </Link>
-            <Heading as="h1" size="lg" ml={3} mb={4}>
-              {getPageName(location.pathname)}
-            </Heading>
-          </>
-        )}
-      </Box>
-      <Flex style={styles.links}>
-        <Link to="/addmakan">
-          <Icon as={BiCommentAdd} boxSize={8} color="grey" />
-        </Link>
-        <Link to="/myprofile">
-          <Icon as={FaUserAlt} boxSize={7} color="grey" />
-        </Link>
+    <Flex
+      borderBottom="1px solid #eee"
+      width="100%"
+      height={isHomePage ? "105px" : "70px"}
+    >
+      <Flex as="nav" style={styles.navbar}>
+        <Box style={styles.pageInfo}>
+          {isHomePage ? (
+            <Image boxSize="70px" margin="12px" src={myImg}></Image>
+          ) : (
+            <Flex style={styles.title}>
+              <Link to="/">
+                <Icon as={IoIosArrowBack} boxSize={9} color="orange" />
+              </Link>
+              <Heading size="lg" mt={1}>
+                {getPageName(location.pathname)}
+              </Heading>
+            </Flex>
+          )}
+        </Box>
+
+        <Flex style={styles.links}>
+          <Link to="/addmakan">
+            <Icon as={BiCommentAdd} boxSize={8} color="grey" />
+          </Link>
+          <Link to="/myprofile">
+            <Icon as={FaUserAlt} boxSize={7} color="grey" />
+          </Link>
+        </Flex>
       </Flex>
     </Flex>
   );
@@ -64,8 +71,6 @@ const styles = {
   navbar: {
     justifyContent: "space-between",
     top: 0,
-    width: "100%",
-    height: "80px",
     backgroundColor: "#fff",
     borderTop: "1px solid #ccc",
     padding: "10px",
@@ -78,10 +83,15 @@ const styles = {
     flex: 1,
     textAlign: "left",
   },
+  title: {
+    position: "absolute",
+    padding: "5px",
+    whiteSpace: "nowrap",
+  },
   links: {
     position: "absolute",
     padding: "5px",
-    right: "3px",
+    right: "10px",
     display: "flex",
     alignItems: "center",
     gap: "10px",
