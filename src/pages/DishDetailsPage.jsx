@@ -1,17 +1,24 @@
-import { useEffect, useState, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState, useCallback } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { getDish, getReviewsForDish } from "../../service/dishes";
 import { getPlace } from "../../service/places";
 import {
-  Flex,
   Box,
-  Container,
-  HStack,
   VStack,
+  HStack,
+  Text,
+  Image,
+  Flex,
+  Badge,
+  Heading,
+  Divider,
+  useColorModeValue,
+  Button,
   Spinner,
 } from "@chakra-ui/react";
 
 export default function DishDetailsPage() {
+  const navigate = useNavigate();
   const { dish_id } = useParams();
   const [dishData, setDishData] = useState(null);
   const [placeData, setPlaceData] = useState(null);
@@ -27,11 +34,15 @@ export default function DishDetailsPage() {
       const place = await getPlace(dish.place_id, dish_id);
       setPlaceData(place);
       const dishReviews = await getReviewsForDish(dish_id);
-      console.log("dishReviews", dishReviews);
+      // TODO: try to map username
+      const usernames = dishReviews.map((review) => {
+        // send this to the back and get the username from querying user table
+        // update the review state to include it so i can use it at the bottom
+      });
       setReviews(dishReviews);
     } catch (error) {
       console.error("Error fetching dish details:", error);
-      setError("This dish looks chaodah already. Try another one!");
+      setError(error.message);
     } finally {
       setIsLoading(false);
     }
@@ -41,6 +52,13 @@ export default function DishDetailsPage() {
     fetchData();
   }, [fetchData]);
 
+  function handleBack() {
+    navigate(-1);
+  }
+
+  const bgColor = useColorModeValue("gray.50", "gray.800");
+  const cardBgColor = useColorModeValue("white", "gray.700");
+
   if (isLoading) {
     return (
       <Flex align="center" justify="center" height="30vh" width="100vw">
@@ -48,40 +66,97 @@ export default function DishDetailsPage() {
       </Flex>
     );
   }
-  if (error) return <div>Error: {error}</div>;
-  if (!dishData || !placeData) return <div>No data available</div>;
+  if (error) return <Text color="red.500">Error: {error}</Text>;
+  if (!dishData || !placeData) return <Text>No data available</Text>;
 
   return (
-    <div>
-      <Container h="100vh" w="100vw">
-        <Box h="50%">IMG HERE</Box>
-        <Box h="50%">
-          <VStack>
-            <Container maxW="md" bg="blue.600" color="white">
-              {dishData.name} @ {placeData.name}
-            </Container>
-            <HStack>
-              <Container maxW="550px" bg="purple.600" color="white">
+    <Box minHeight="100vh" bg={bgColor}>
+      <Flex direction={{ base: "column", md: "row" }}>
+        <Button mb={4} onClick={handleBack}>
+          Back
+        </Button>
+        <Box flexBasis={{ base: "20%", md: "50%" }} flexShrink={0}>
+          <Image
+            // TO ADD IMG URL
+            src={dishData.image_url}
+            alt={dishData.name}
+            objectFit="cover"
+            w="100%"
+            h={{ base: "30vh", md: "50vh" }}
+            border="4px solid lime"
+          />
+          <Box bg={cardBgColor} p={4} borderRadius="md" shadow="md">
+            <Heading as="h1" size="xl" mb={2}>
+              {dishData.name}
+            </Heading>
+            <Text fontSize="lg" color="gray.500" mb={4}>
+              {placeData.name}
+            </Text>
+            <HStack spacing={4} mb={4}>
+              <Badge
+                colorScheme="green"
+                fontSize="lg"
+                px={3}
+                py={1}
+                flexGrow={1}
+              >
                 ${dishData.latest_price}
-              </Container>
-              <Container maxW="550px" bg="purple.600" color="white">
-                {dishData.avg_rating}
-              </Container>
+              </Badge>
+              <Badge
+                colorScheme="orange"
+                fontSize="lg"
+                px={3}
+                py={1}
+                flexGrow={1}
+              >
+                {dishData.avg_rating} ⭐
+              </Badge>
             </HStack>
-            {reviews.length > 0 ? (
-              reviews.map((review) => (
-                <div key={review._id}>
-                  <Container maxW="container.sm" bg="green.400" color="#262626">
-                    Rating: {review.rating} Comment: {review.comment}
-                  </Container>
-                </div>
-              ))
-            ) : (
-              <p>No reviews yet.</p>
-            )}
-          </VStack>
+            {/* Look into formatting */}
+            <Text color="grey" fontSize="12">
+              Last updated @ {new Date(dishData.updatedAt).toLocaleDateString()}
+            </Text>
+          </Box>
         </Box>
-      </Container>
-    </div>
+        <VStack
+          flexGrow={1}
+          spacing={4}
+          align="stretch"
+          p={4}
+          maxHeight={{ base: "60vh", md: "100vh" }}
+          overflowY="auto"
+        >
+          <Divider />
+
+          <Heading as="h2" size="lg" mb={2}>
+            Reviews
+          </Heading>
+          {reviews.length > 0 ? (
+            reviews.map((review) => (
+              <Box
+                key={review._id}
+                bg={cardBgColor}
+                p={4}
+                borderRadius="md"
+                shadow="sm"
+              >
+                <HStack justify="space-between" mb={2}>
+                  <Text>{review.comment}</Text>
+                  <Badge colorScheme="orange">{review.rating} ⭐</Badge>
+                  <Text>{review.comment}</Text>
+                  <Text fontSize="sm" color="gray.500">
+                    {new Date(review.createdAt).toLocaleDateString()}
+                  </Text>
+                </HStack>
+              </Box>
+            ))
+          ) : (
+            <Text textAlign="center" color="gray.500">
+              No reviews yet.
+            </Text>
+          )}
+        </VStack>
+      </Flex>
+    </Box>
   );
 }

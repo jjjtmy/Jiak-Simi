@@ -1,11 +1,12 @@
-import { Link, useLocation } from "react-router-dom";
-import { Heading, Box, Text, Flex, Icon, Image } from "@chakra-ui/react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Heading, Box, Flex, Icon, Image, IconButton } from "@chakra-ui/react";
 import { BiCommentAdd } from "react-icons/bi";
 import { FaUserAlt } from "react-icons/fa";
-import { IoIosArrowBack } from "react-icons/io";
+import { ArrowBackIcon } from "@chakra-ui/icons";
 import myImg from "../assets/jiaksimi1.png";
 
 const NavBar = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const isHomePage = location.pathname === "/";
 
@@ -44,10 +45,11 @@ const NavBar = () => {
             <Image boxSize="70px" margin="12px" src={myImg}></Image>
           ) : (
             <Flex style={styles.title}>
-              <Link to="/">
-                <Icon as={IoIosArrowBack} boxSize={9} color="orange" />
-              </Link>
-              <Heading size="lg" mt={1}>
+              <IconButton
+                icon={<ArrowBackIcon boxSize={7} />}
+                onClick={() => navigate(-1)}
+              />
+              <Heading size="lg" mt={1} ml={3}>
                 {getPageName(location.pathname)}
               </Heading>
             </Flex>
