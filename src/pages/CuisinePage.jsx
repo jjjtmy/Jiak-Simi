@@ -15,7 +15,7 @@ export default function CuisinePage() {
   const RadioCard = ({ cuisine, isSelected, onSelect }) => {
     return (
       <Box
-        bg={isSelected ? "orange" : "lightyellow"}
+        bg={isSelected ? "orange" : "lightorange"}
         p={2}
         borderRadius="md"
         border="1px"
@@ -32,7 +32,7 @@ export default function CuisinePage() {
 
   return (
     <div style={styles.page}>
-      <Stack spacing={2} width="90%" ml="5%" mt={4}>
+      <Stack spacing={2} width="80%" mt={4}>
         <RadioCard
           cuisine="Local Food"
           isSelected={selectedCuisine === "Local Food"}
@@ -68,8 +68,8 @@ const styles = {
     height: "100vh",
     display: "flex",
     flexDirection: "column",
-    alignItems: "flex-start",
+    alignItems: "center",
     justifyContent: "flex-start",
-    width: "80vw",
+    width: "100vw",
   },
 };
