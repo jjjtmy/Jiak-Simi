@@ -8,6 +8,7 @@ import {
   VStack,
   HStack,
   IconButton,
+  Image,
 } from "@chakra-ui/react";
 import { DeleteIcon, StarIcon } from "@chakra-ui/icons";
 
@@ -20,6 +21,36 @@ export default function MakanForm({ dish, updateForm, onDelete }) {
   const handleRatingChange = (newRating) => {
     updateForm({ rating: newRating });
   };
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    // file validation
+  if (file && file.type.substr(0, 5) === "image") {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('ml_default', 'ml_default'); 
+
+    // should add loader here
+    
+    // when user uploads photo, post it to cloudinary
+    fetch('https://api.cloudinary.com/v1_1/dxn0qasmg/image/upload', {
+      method: 'POST',
+      body: formData,
+    })
+      .then(response => response.json())
+      .then(data => {
+        // update lifted state with imageurl
+        updateForm({ image_url: data.secure_url });
+        // once done can remove loader
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        // here also since error
+      });
+  } else {
+    console.error('Invalid file type');
+  }
+};
 
   return (
     <VStack spacing={3} align="stretch">
@@ -42,6 +73,8 @@ export default function MakanForm({ dish, updateForm, onDelete }) {
         onChange={handleChange}
         size="sm"
       />
+       <Input name="image_url" type="file" onChange={handleImageUpload} accept="image/*" />
+       {dish.image_url && <Image cloudName="your_cloud_name" publicId={dish.image_url} width="300" crop="scale" />}
 
       <HStack spacing={4}>
         <InputGroup size="sm">

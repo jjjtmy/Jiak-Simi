@@ -69,13 +69,11 @@ export default function DishDetailsPage() {
       <Button mb={4} onClick={handleBack}>Back</Button>
         <Box flexBasis={{ base: "20%", md: "50%" }} flexShrink={0}>
           <Image
-          // TO ADD IMG URL
-            src={dishData.image_url}
+            src={reviews[0].image_url}
             alt={dishData.name}
-            objectFit="cover"
+            objectFit='contain'
             w="100%"
             h={{ base: "30vh", md: "50vh" }}
-            border='4px solid lime'
           />
           <Box bg={cardBgColor} p={4} borderRadius="md" shadow="md">
             <Heading as="h1" size="xl" mb={2}>

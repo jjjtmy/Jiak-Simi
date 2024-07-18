@@ -1,6 +1,6 @@
 import { Box, Image, Text, Icon } from "@chakra-ui/react";
 import { TiThumbsUp } from "react-icons/ti";
-import { getDish } from "../../service/dishes";
+import { getDish, getReviewsForDish } from "../../service/dishes";
 import { getPlace } from "../../service/places";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -13,11 +13,15 @@ export default function FoodCard({ dish_id }) {
     async function fetchReviews() {
       try {
         const dishData = await getDish(dish_id);
+        const reviewsData = await getReviewsForDish(dish_id) // can be arr of reviews
+        console.log(reviewsData)
+        const imageUrl = reviewsData[0].image_url // take the first one
+        console.log('imageUrl', imageUrl)
         // console.log(`FoodCard dishData`, dishData)
         const placeData = await getPlace(dishData.place_id, dish_id);
         // console.log( `FoodCard placeData`, placeData)
 
-        const combinedData = { dishData, placeData };
+        const combinedData = { dishData, placeData, imageUrl };
         // console.log(`FINAL DATA IS ${JSON.stringify(combinedData)}`);
         setReviewData(combinedData);
       } catch (error) {
@@ -66,7 +70,7 @@ export default function FoodCard({ dish_id }) {
       flexDirection="column"
     >
       {/* TODO: pull image from google */}
-      <Image objectFit="cover" h="120px" w="100%" />
+      <Image src={reviewData.imageUrl} objectFit="contain" h="120px" w="100%" />
 
       <Box h="90px">
         <Box p="1">
