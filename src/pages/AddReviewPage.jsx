@@ -58,7 +58,7 @@ export default function AddReviewPage() {
       setError("Sorry, cannot submit your makan. Please try again.");
     }
   }
-console.log(formState)
+  console.log(formState);
 
   function addMakanForm() {
     setFormState((prevState) => [{}, ...prevState]);
@@ -77,7 +77,7 @@ console.log(formState)
   }
 
   return (
-    <Box minHeight="100vh" bg={bgColor} pt={4}>
+    <Box minHeight="100vh" bg={bgColor} pt={4} mt={10}>
       <Container maxW="container.md">
         <IconButton
           icon={<ArrowBackIcon />}
@@ -110,7 +110,7 @@ console.log(formState)
               <option value="Italian">Italian</option>
               <option value="Fast Food">Fast Food</option>
             </Select>
-            
+
             <Text
               as="button"
               type="button"
@@ -128,7 +128,13 @@ console.log(formState)
 
           <VStack spacing={6} align="stretch" mb={6}>
             {formState.map((dish, index) => (
-              <Box key={index} bg={cardBgColor} p={4} borderRadius="md" shadow="md">
+              <Box
+                key={index}
+                bg={cardBgColor}
+                p={4}
+                borderRadius="md"
+                shadow="md"
+              >
                 <MakanForm
                   dish={dish}
                   updateForm={(newData) => updateMakanForm(index, newData)}
