@@ -1,117 +1,86 @@
+import React from "react";
 import {
-  Flex,
   FormLabel,
-  HStack,
   Input,
   InputGroup,
   InputLeftElement,
   Textarea,
   VStack,
+  HStack,
+  IconButton,
 } from "@chakra-ui/react";
-import StarRating from "./StarRating";
-import { useState } from "react";
+import { DeleteIcon, StarIcon } from "@chakra-ui/icons";
 
-export default function MakanForm({
-  formInput,
-  setRating,
-  index,
-  originalFormState,
-}) {
+export default function MakanForm({ dish, updateForm, onDelete, isEdit }) {
+  console.log(`dish`, dish);
   const handleChange = (evt) => {
     const { name, value } = evt.target;
-    // set the lifted form state
-    formInput.setFormState((prevState) => {
-      // Ensure prevState is an array
-      const reviewState = Array.isArray(prevState) ? [...prevState] : [];
-      console.log("reviewstate", reviewState);
-      // target the current makan form using the index
-      reviewState[index] = {
-        // take the contents of this particular form and copy it
-        ...reviewState[index],
-        // change any new values
-        [name]: value,
-      };
-      console.log(`reviewState`, reviewState);
-      // return the whole array of objects
-      return reviewState;
-    });
+    console.log(evt);
+    let UPDATED = updateForm({ [name]: value });
+    console.log(`UPDATED IS`, UPDATED);
   };
 
-  const handleFormChange = (newFormState) => {
-    formInput.setFormState((prevState) => {
-      const reviewState = Array.isArray(prevState) ? [...prevState] : [];
-      reviewState[index] = {
-        ...reviewState[index],
-        ...newFormState,
-      };
-      return reviewState;
-    });
+  const handleRatingChange = (newRating) => {
+    updateForm({ rating: newRating });
   };
 
   return (
-    <>
-      <Flex direction="column">
-        <VStack>
-          <FormLabel m="0">Dish name</FormLabel>
-          <Input
-            name="name"
-            placeholder={
-              originalFormState ? originalFormState.name : "e.g. spaghetti"
-            }
-            value={
-              originalFormState
-                ? originalFormState.name
-                : formInput.formState[index]?.name || ""
-            }
-            onChange={handleChange}
-            readOnly={!!originalFormState}
+    <VStack spacing={3} align="stretch">
+      <HStack justify="space-between">
+        <FormLabel fontSize="sm" mb={1}>
+          Dish name
+        </FormLabel>
+        {!isEdit && (
+          <IconButton
+            icon={<DeleteIcon color="red" />}
+            size="sm"
+            colorScheme="white"
+            onClick={onDelete}
+            aria-label="Delete Makan Form"
           />
+        )}
+      </HStack>
+      <Input
+        name="name"
+        placeholder={dish.name || "Enter dish name. (as menu)}"}
+        readOnly={isEdit}
+        onChange={handleChange}
+        size="sm"
+      />
 
-          <HStack>
-            <VStack>
-              <HStack>
-                <VStack align="stretch" mr="4">
-                  <FormLabel m="0">Price</FormLabel>
-                  <InputGroup>
-                    <InputLeftElement
-                      pointerEvents="none"
-                      color="gray.300"
-                      fontSize="1.2em"
-                    >
-                      $
-                    </InputLeftElement>
-                    <Input
-                      name="price"
-                      type="number"
-                      placeholder={
-                        originalFormState ? originalFormState.price : "e.g. 5"
-                      }
-                      onChange={handleChange}
-                    />
-                  </InputGroup>
-                </VStack>
-                <VStack align="stretch">
-                  <FormLabel mb="0">Rating</FormLabel>
-                  <StarRating
-                    name="rating"
-                    setRating={(rating) => handleFormChange({ rating })}
-                  />
-                </VStack>
-              </HStack>
-            </VStack>
-          </HStack>
-          <FormLabel m="0">Comment</FormLabel>
-          <Textarea
-            name="comments"
-            placeholder={
-              originalFormState
-                ? originalFormState.comment
-                : "e.g. so delicious"
-            }
+      <HStack spacing={4}>
+        <InputGroup size="sm">
+          <InputLeftElement
+            pointerEvents="none"
+            color="gray.300"
+            fontSize="1em"
+            children="$"
+          />
+          <Input
+            name="price"
+            type="number"
+            placeholder={dish.price || "0.00"}
             onChange={handleChange}
           />
-        </VStack>
-      </Flex>
-    </>
+        </InputGroup>
+        <HStack>
+          {[1, 2, 3, 4, 5].map((star) => (
+            <StarIcon
+              key={star}
+              color={star <= (dish.rating || 0) ? "yellow.400" : "gray.300"}
+              onClick={() => handleRatingChange(star)}
+              cursor="pointer"
+            />
+          ))}
+        </HStack>
+      </HStack>
+
+      <Textarea
+        name="comments"
+        placeholder={dish.comments || "Enter comments"}
+        onChange={handleChange}
+        size="sm"
+      />
+    </VStack>
   );
 }
