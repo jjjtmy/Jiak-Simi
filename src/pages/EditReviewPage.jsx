@@ -175,7 +175,7 @@ export default function EditReviewPage() {
               {error}
             </FormErrorMessage>
           )}
-          <Button type="submit" colorScheme="blue" width="full" mb={4}>
+          <Button type="submit" colorScheme="orange" width="full" mb={4}>
             Update Review
           </Button>
         </FormControl>

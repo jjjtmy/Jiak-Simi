@@ -1,9 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
-import { Heading, Box, Text, Flex, Icon, Image, Divider } from "@chakra-ui/react";
-import { BiCommentAdd } from "react-icons/bi";
-import { FaUserAlt } from "react-icons/fa";
+import { Heading, Flex, Icon, Image } from "@chakra-ui/react";
 import { IoIosArrowBack } from "react-icons/io";
-import { CgProfile } from "react-icons/cg";
 import { MdAddBox } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 
@@ -34,7 +31,16 @@ const NavBar = () => {
 
   return (
     <>
-    <Flex as="nav" dir='row' alignItems='center' justifyContent='space-between' w='100%' p='2' h={{base: '80px', sm: '88px'}} pt={4}>
+      <Flex
+        as="nav"
+        dir="row"
+        alignItems="center"
+        justifyContent="space-between"
+        w="100%"
+        p="2"
+        h={{ base: "80px", sm: "88px" }}
+        pt={4}
+      >
         {isHomePage ? (
           <Image boxSize="56px" margin="2px" src={myImg} ml={3}></Image>
         ) : (
@@ -47,15 +53,15 @@ const NavBar = () => {
             </Heading>
           </>
         )}
-      <Flex gap={{base: '8px', md: '10px'}} mr='2' alignItems={"center"} >
-        <Link to="/addmakan">
-          <Icon as={MdAddBox} boxSize={8} color="#9c3434" />
-        </Link>
-        <Link to="/myprofile">
-          <Icon as={FaUserCircle} boxSize={7} color="#9c3434"/>
-        </Link>
+        <Flex gap={{ base: "8px", md: "10px" }} mr="2" alignItems={"center"}>
+          <Link to="/addmakan">
+            <Icon as={MdAddBox} boxSize={8} color="#9c3434" />
+          </Link>
+          <Link to="/myprofile">
+            <Icon as={FaUserCircle} boxSize={7} color="#9c3434" />
+          </Link>
+        </Flex>
       </Flex>
-    </Flex>
     </>
   );
 };
