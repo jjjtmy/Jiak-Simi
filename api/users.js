@@ -38,11 +38,8 @@ export async function logOutUser(token, userData) {
 }
 
 export async function getUsername(user_id) {
-  console.log(`api userid`, user_id);
+  const searchParams = new URLSearchParams({ user_id: user_id });
   return await sendRequest(
-    `${BASE_URL}/user/${user_id}`,
-    "GET",
-    null,
-    "Error fetching user"
-  );
+    `${BASE_URL}/user?${searchParams}`
+  )
 }
