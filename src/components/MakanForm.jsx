@@ -28,7 +28,7 @@ export default function MakanForm({ dish, updateForm, onDelete }) {
   if (file && file.type.substr(0, 5) === "image") {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('ml_default', 'ml_default'); 
+    formData.append('upload_preset', 'ml_default'); 
 
     // should add loader here
     
@@ -39,7 +39,7 @@ export default function MakanForm({ dish, updateForm, onDelete }) {
     })
       .then(response => response.json())
       .then(data => {
-        // update lifted state with imageurl
+        // update lifted state with image
         updateForm({ image_url: data.secure_url });
         // once done can remove loader
       })
