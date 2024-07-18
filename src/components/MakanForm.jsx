@@ -59,7 +59,7 @@ export default function MakanForm({ dish, updateForm, onDelete, isEdit }) {
           <Input
             name="price"
             type="number"
-            placeholder={dish.price || "e.g. 5"}
+            placeholder={dish.price || "0.00"}
             onChange={handleChange}
           />
         </InputGroup>

@@ -15,6 +15,7 @@ import {
   useColorModeValue,
   Button,
 } from "@chakra-ui/react";
+import intToFloat from "../../util/convertDecimal";
 
 export default function DishDetailsPage() {
   const navigate = useNavigate();
@@ -86,10 +87,10 @@ export default function DishDetailsPage() {
             </Text>
             <HStack spacing={4} mb={4}>
               <Badge colorScheme="green" fontSize="lg" px={3} py={1} flexGrow={1}>
-                ${dishData.latest_price}
+                ${intToFloat(dishData.latest_price, 2)}
               </Badge>
               <Badge colorScheme="orange" fontSize="lg" px={3} py={1}flexGrow={1}>
-                {dishData.avg_rating} ⭐
+                {intToFloat(dishData.avg_rating,1)} ⭐
               </Badge>
             </HStack>
             {/* Look into formatting */}
