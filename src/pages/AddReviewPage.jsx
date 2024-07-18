@@ -74,7 +74,7 @@ export default function AddReviewPage() {
   }
 
   return (
-    <Box minHeight="100vh" bg={bgColor} pt={4}>
+    <Box minHeight="100vh" bg={bgColor} pt={4} m={5} p={5}>
       <Container maxW="container.md">
         <FormControl as="form" onSubmit={handleSubmit} isInvalid={error}>
           <VStack spacing={4} align="stretch" mb={6}>

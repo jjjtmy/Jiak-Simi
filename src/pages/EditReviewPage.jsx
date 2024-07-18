@@ -177,5 +177,6 @@ const styles = {
     padding: "20px",
     width: "100vw",
     height: "100vh",
+    margin: "5px",
   },
 };

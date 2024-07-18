@@ -76,6 +76,7 @@ const styles = {
     backgroundColor: "#fff",
     borderTop: "1px solid #ccc",
     padding: "10px",
+    width: "100vw",
   },
   pageInfo: {
     position: "absolute",

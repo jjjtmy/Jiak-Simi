@@ -70,11 +70,11 @@ export default function DishDetailsPage() {
   if (!dishData || !placeData) return <Text>No data available</Text>;
 
   return (
-    <Box minHeight="100vh" bg={bgColor}>
+    <Box minHeight="100vh" bg={bgColor} m={5} p={5}>
       <Flex direction={{ base: "column", md: "row" }}>
-        <Button mb={4} onClick={handleBack}>
+        {/* <Button mb={4} onClick={handleBack}>
           Back
-        </Button>
+        </Button> */}
         <Box flexBasis={{ base: "20%", md: "50%" }} flexShrink={0}>
           <Image
             // TO ADD IMG URL
