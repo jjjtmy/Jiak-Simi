@@ -12,6 +12,7 @@ import {
   Image,
   FormControl,
   FormErrorMessage,
+  Flex,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -67,7 +68,7 @@ export default function LoginPage({ setUser, user }) {
 
   return (
     <main>
-      <Box mt="24">
+      <Flex justifyContent='center' alignItems='center' mt="0">
         <Card align="center">
           <CardHeader>
             <Image
@@ -123,7 +124,7 @@ export default function LoginPage({ setUser, user }) {
             </Text>
           </CardFooter>
         </Card>
-      </Box>
+      </Flex>
     </main>
   );
 }
