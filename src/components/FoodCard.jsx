@@ -71,9 +71,9 @@ export default function FoodCard({ dish_id }) {
       flexDirection="column"
     >
       {/* TODO: pull image from google */}
-      <Image src={reviewData.imageUrl} objectFit="contain" h="120px" w="100%" />
+      <Image src={reviewData.imageUrl} objectFit="contain" h="120px" w="100%" backgroundColor="grey"/>
 
-      <Box h="90px"> {/* this is the main box? */}
+      <Box h="90px" backgroundColor="white"> {/* this is the main box? */}
           <Box display="flex" flexDir="column" justifyContent="flex-start" alignItems="flex-start" fontWeight="bold" fontSize={10} color="grey" marginInline="4" pt="2">
             <HStack>
               <Icon as={TiThumbsUp} boxSize={3} />
@@ -96,14 +96,6 @@ export default function FoodCard({ dish_id }) {
               ? `$${intToFloat(reviewData.dishData.latest_price, 2)}`
               : "??"}
           </Text>
-          <Box display="flex" justifyContent="space-around" fontWeight="bold">
-            <Text fontWeight="bold" color="orange">
-              {reviewData.dishData?.avg_rating != null
-                ? intToFloat(reviewData.dishData.avg_rating, 1)
-                : "??"}
-            </Text>
-            <Icon as={TiThumbsUp} boxSize={8} color="orange" />
-          </Box>
         </Box>
       </Box>
     </Box>

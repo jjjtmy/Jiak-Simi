@@ -23,9 +23,9 @@ export default function HomePage() {
   }, []); // Empty dependency array ensures this effect runs only once on component mount
 
   return (
-    <Container w="100vw" d="flex" justifyContent="space-evenly" mt="4">
-      <Link to="/cuisine">
-        <Button h="1.75rem" size="sm" colorScheme="orange">
+    <Container w="100vw" d="flex" justifyContent="space-evenly" mt="0">
+      <Link to="/cuisine" >
+        <Button h="2rem" size="sm" bgColor="#346434" color="white" my='2' w='100%'>
           Search By Cuisine
         </Button>
       </Link>

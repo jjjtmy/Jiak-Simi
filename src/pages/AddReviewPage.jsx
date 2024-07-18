@@ -77,19 +77,7 @@ export default function AddReviewPage() {
   }
 
   return (
-    <Box minHeight="100vh" bg={bgColor} pt={4} mt={10}>
-      <Container maxW="container.md">
-        <IconButton
-          icon={<ArrowBackIcon />}
-          onClick={() => navigate(-1)}
-          position="absolute"
-          top={4}
-          left={4}
-          aria-label="Go back"
-        />
-        <Heading as="h1" size="xl" textAlign="center" mb={6}>
-          Add Review
-        </Heading>
+      <Container maxW="container.md" minHeight="100vh" bg={bgColor} pt={4}>
         <FormControl as="form" onSubmit={handleSubmit} isInvalid={error}>
           <VStack spacing={4} align="stretch" mb={6}>
             <FormLabel>Place</FormLabel>
@@ -149,11 +137,10 @@ export default function AddReviewPage() {
               {error}
             </FormErrorMessage>
           )}
-          <Button type="submit" colorScheme="blue" width="full" mb={4}>
+          <Button type="submit" bgColor="#9c3434" color="white" width="full" mb={4}>
             Submit Review
           </Button>
         </FormControl>
       </Container>
-    </Box>
   );
 }

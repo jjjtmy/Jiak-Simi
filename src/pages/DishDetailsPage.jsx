@@ -52,9 +52,6 @@ export default function DishDetailsPage() {
     fetchData();
   }, [fetchData]);
 
-  function handleBack() {
-    navigate(-1)
-  }
 
   const bgColor = useColorModeValue("gray.50", "gray.800");
   const cardBgColor = useColorModeValue("white", "gray.700");
@@ -64,10 +61,9 @@ export default function DishDetailsPage() {
   if (!dishData || !placeData) return <Text>No data available</Text>;
 
   return (
-    <Box minHeight="100vh" bg={bgColor}>
+    <Box minHeight="100vh" w='100%' bg={bgColor} px={8}>
       
       <Flex direction={{ base: "column", md: "row" }}>
-      <Button mb={4} onClick={handleBack}>Back</Button>
         <Box flexBasis={{ base: "20%", md: "50%" }} flexShrink={0}>
           <Image
             src={reviews[0].image_url}

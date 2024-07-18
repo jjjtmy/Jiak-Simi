@@ -1,8 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
-import { Heading, Box, Text, Flex, Icon, Image } from "@chakra-ui/react";
+import { Heading, Box, Text, Flex, Icon, Image, Divider } from "@chakra-ui/react";
 import { BiCommentAdd } from "react-icons/bi";
 import { FaUserAlt } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
+import { CgProfile } from "react-icons/cg";
+import { MdAddBox } from "react-icons/md";
+import { FaUserCircle } from "react-icons/fa";
+
 import myImg from "../assets/jiaksimi1.png";
 
 const NavBar = () => {
@@ -12,15 +16,11 @@ const NavBar = () => {
   const getPageName = (path) => {
     switch (path) {
       case "/cuisine":
-        return "Cuisine";
+        return "Select Cuisine";
       case "/results/:cuisine":
         return "Results";
       case "/dishes/:dish_id":
         return "Dish Details";
-      case "/login":
-        return "Login";
-      case "/signup":
-        return "Sign Up";
       case "/myprofile":
         return "My Profile";
       case "/addmakan":
@@ -33,59 +33,31 @@ const NavBar = () => {
   };
 
   return (
-    <Flex as="nav" style={styles.navbar}>
-      <Box style={styles.pageInfo}>
+    <>
+    <Flex as="nav" dir='row' alignItems='center' justifyContent='space-between' w='100%' p='2' h={{base: '80px', sm: '88px'}} pt={4}>
         {isHomePage ? (
-          <Image boxSize="70px" margin="12px" src={myImg}></Image>
+          <Image boxSize="56px" margin="2px" src={myImg} ml={3}></Image>
         ) : (
           <>
             <Link to="/">
               <Icon as={IoIosArrowBack} boxSize={9} color="orange" />
             </Link>
-            <Heading as="h1" size="lg" ml={3} mb={4}>
+            <Heading as="h1" size="lg">
               {getPageName(location.pathname)}
             </Heading>
           </>
         )}
-      </Box>
-      <Flex style={styles.links}>
+      <Flex gap={{base: '8px', md: '10px'}} mr='2' alignItems={"center"} >
         <Link to="/addmakan">
-          <Icon as={BiCommentAdd} boxSize={8} color="grey" />
+          <Icon as={MdAddBox} boxSize={8} color="#9c3434" />
         </Link>
         <Link to="/myprofile">
-          <Icon as={FaUserAlt} boxSize={7} color="grey" />
+          <Icon as={FaUserCircle} boxSize={7} color="#9c3434"/>
         </Link>
       </Flex>
     </Flex>
+    </>
   );
-};
-
-const styles = {
-  navbar: {
-    justifyContent: "space-between",
-    top: 0,
-    width: "100%",
-    height: "80px",
-    backgroundColor: "#fff",
-    borderTop: "1px solid #ccc",
-    padding: "10px",
-  },
-  pageInfo: {
-    position: "absolute",
-    left: 0,
-    top: 0,
-    padding: "10px",
-    flex: 1,
-    textAlign: "left",
-  },
-  links: {
-    position: "absolute",
-    padding: "5px",
-    right: "3px",
-    display: "flex",
-    alignItems: "center",
-    gap: "10px",
-  },
 };
 
 export default NavBar;
