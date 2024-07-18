@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getDish, getReviewsForDish } from "../../service/dishes";
 import { getPlace } from "../../service/places";
 import {
@@ -13,12 +13,12 @@ import {
   Heading,
   Divider,
   useColorModeValue,
-  Button,
+  Container,
 } from "@chakra-ui/react";
 import intToFloat from "../../util/convertDecimal";
+import { getUsername } from "../../service/users";
 
 export default function DishDetailsPage() {
-  const navigate = useNavigate();
   const { dish_id } = useParams();
   const [dishData, setDishData] = useState(null);
   const [placeData, setPlaceData] = useState(null);
@@ -34,12 +34,19 @@ export default function DishDetailsPage() {
       const place = await getPlace(dish.place_id, dish_id);
       setPlaceData(place);
       const dishReviews = await getReviewsForDish(dish_id);
-      // TODO: try to map username
-      const usernames = dishReviews.map((review) => {
-        // send this to the back and get the username from querying user table
-        // update the review state to include it so i can use it at the bottom
-      })
-      setReviews(dishReviews);
+      console.log('dishReviews', dishReviews)
+      
+      const reviewsWithUsernames = await Promise.all(
+        dishReviews.map(async (review) => {
+          const userObj = await getUsername(review.user_id);
+          const username = userObj.username
+          console.log('DD username', username)
+          return { ...review, username };
+        })
+      )
+      console.log('reviewsWithUsernames', reviewsWithUsernames) 
+      
+      setReviews(reviewsWithUsernames);
     } catch (error) {
       console.error("Error fetching dish details:", error);
       setError(error.message);
@@ -61,7 +68,7 @@ export default function DishDetailsPage() {
   if (!dishData || !placeData) return <Text>No data available</Text>;
 
   return (
-    <Box minHeight="100vh" w='100%' bg={bgColor} px={8}>
+    <Box minHeight="100vh" w='100%' bg={bgColor} px={4}>
       
       <Flex direction={{ base: "column", md: "row" }}>
         <Box flexBasis={{ base: "20%", md: "50%" }} flexShrink={0}>
@@ -110,14 +117,16 @@ export default function DishDetailsPage() {
               <Box
                 key={review._id}
                 bg={cardBgColor}
-                p={4}
+                p={2}
                 borderRadius="md"
                 shadow="sm"
               >
-                <HStack justify="space-between" mb={2}>
-                <Text>{review.comment}</Text>
+                <HStack justify="space-between" mb={2} d='flex'>
+                  <Flex flexDir={"row"} gap={2} alignItems='center'>
                   <Badge colorScheme="orange">{review.rating} ⭐</Badge>
-                  <Text>{review.comment}</Text>
+                  <Text fontWeight='600' >{review.username}:</Text>
+                  </Flex>
+                  <Text textAlign='left' flexGrow={1}>{review.comment}</Text>
                   <Text fontSize="sm" color="gray.500">
                     {new Date(review.createdAt).toLocaleDateString()}
                   </Text>
