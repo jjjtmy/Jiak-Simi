@@ -36,3 +36,11 @@ export async function logOutUser(token, userData) {
     throw new Error("Invalid Logout");
   }
 }
+
+export async function getUsername(user_id) {
+  const searchParams = new URLSearchParams({ user_id: user_id });
+  return await sendRequest(
+    `${BASE_URL}/user?${searchParams}`
+  )
+}
+  

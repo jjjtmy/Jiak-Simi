@@ -29,15 +29,9 @@ export function getUser() {
   return token ? JSON.parse(atob(token.split(".")[1])).payload.user_id : null;
 }
 
-export function getUsername() {
-  const token = getToken();
-  // If there's a token, return the username in the payload, otherwise return null
-  // console.log(
-  //   `payload`,
-  //   JSON.parse(atob(token.split(".")[1])).payload.username
-  // );
-
-  return token ? JSON.parse(atob(token.split(".")[1])).payload.username : null;
+export async function getUsername(user_id) {
+  const res = await usersAPI.getUsername(user_id)
+  return res
 }
 
 export async function logOutUser() {
