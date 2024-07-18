@@ -4,6 +4,7 @@ import { getDish } from "../../service/dishes";
 import { getPlace } from "../../service/places";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import intToFloat from "../../util/convertDecimal";
 
 export default function FoodCard({ dish_id }) {
   const navigate = useNavigate();
@@ -85,13 +86,13 @@ export default function FoodCard({ dish_id }) {
         <Box display="flex" justifyContent="space-around" fontWeight="bold">
           <Text>
             {reviewData.dishData?.latest_price != null
-              ? `$${reviewData.dishData.latest_price}`
+              ? `$${intToFloat(reviewData.dishData.latest_price, 2)}`
               : "??"}
           </Text>
           <Box display="flex" justifyContent="space-around" fontWeight="bold">
             <Text fontWeight="bold" color="orange">
               {reviewData.dishData?.avg_rating != null
-                ? reviewData.dishData.avg_rating
+                ? intToFloat(reviewData.dishData.avg_rating, 1)
                 : "??"}
             </Text>
             <Icon as={TiThumbsUp} boxSize={8} color="orange" />

@@ -37,7 +37,7 @@ export default function MakanForm({ dish, updateForm, onDelete }) {
       </HStack>
       <Input
         name="name"
-        placeholder="Enter dish name. (as menu)"
+        placeholder="Enter dish name (as menu)"
         value={dish.name || ""}
         onChange={handleChange}
         size="sm"
@@ -54,7 +54,7 @@ export default function MakanForm({ dish, updateForm, onDelete }) {
           <Input
             name="price"
             type="number"
-            placeholder="e.g. 5"
+            placeholder="0.00"
             value={dish.price || ""}
             onChange={handleChange}
           />
