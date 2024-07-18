@@ -10,7 +10,6 @@ import {
 } from "@chakra-ui/react";
 import { FaUserAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import NavBar from "../components/NavBar";
 import { fetchReviewsByUser } from "../../service/reviews";
 import { getDish } from "../../service/dishes";
 import { getPlace } from "../../service/places";
@@ -103,7 +102,6 @@ export default function ProfilePage({ setUser }) {
           ))}
         </VStack>
       </Card>
-      <NavBar />
     </Box>
   );
 }

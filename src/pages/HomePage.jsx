@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import Header from "../components/Header";
-import NavBar from "../components/NavBar";
 import FoodCard from "../components/FoodCard";
 import { fetchAllDishesIDs } from "../../service/dishes";
+import { Container, Button } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
   const [cards, setCards] = useState([]);
@@ -23,15 +23,18 @@ export default function HomePage() {
   }, []); // Empty dependency array ensures this effect runs only once on component mount
 
   return (
-    <>
-      <Header />
+    <Container w="100vw" d="flex" justifyContent="space-evenly" mt="4">
+      <Link to="/cuisine">
+        <Button h="1.75rem" size="sm" colorScheme="orange">
+          Search By Cuisine
+        </Button>
+      </Link>
       <div style={styles.grid}>
         {cards.map((card) => (
           <FoodCard key={card._id} dish_id={card._id} style={styles.card} /> //pass dish_id as prop to each FoodCard
         ))}
       </div>
-      <NavBar />
-    </>
+    </Container>
   );
 }
 
@@ -40,13 +43,12 @@ const styles = {
     display: "grid",
     gridTemplateColumns: "repeat(2, 1fr)",
     gap: "16px",
-    padding: "16px",
-    width: "90vw",
-    height: "100",
+    padding: "5px",
+    width: "100%",
+    height: "100%",
   },
   card: {
-    padding: "20px",
-    backgroundColor: "#fff",
+    backgroundColor: "yellow.400",
     border: "1px solid #ccc",
     borderRadius: "8px",
     boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
