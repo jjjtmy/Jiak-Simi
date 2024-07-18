@@ -17,7 +17,20 @@ import { logOutUser, getUser, getUsername } from "../../service/users";
 
 export default function ProfilePage({ setUser }) {
   const [userID, setUserID] = useState(getUser);
-  const [username, setUsername] = useState(getUsername);
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    async function getUser() {
+      try {
+        const username = await getUsername(userID);
+        setUsername(username);
+      } catch (error) {
+        console.error("Error fetching username", error);
+      }
+    }
+
+    getUser();
+  }, [userID]);
 
   const navigate = useNavigate();
   async function handleLogOut() {
@@ -56,6 +69,21 @@ export default function ProfilePage({ setUser }) {
 
     fetchUserReviews();
   }, []);
+
+  // useEffect(() => {
+  //   async function getUser() {
+  //     try {
+  //       console.log(`userID`, userID);
+  //       const username = await getUsername(userID);
+  //       console.log("username", username);
+  //       setUsername(username);
+  //     } catch (error) {
+  //       console.error("Error fetching username", error);
+  //     }
+  //   }
+
+  //   getUser();
+  // }, []);
 
   return (
     <Box w="100vw" h="100vh">

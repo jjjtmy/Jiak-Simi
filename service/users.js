@@ -30,8 +30,10 @@ export function getUser() {
 }
 
 export async function getUsername(user_id) {
-  const res = await usersAPI.getUsername(user_id)
-  return res
+  // console.log(`service userid`, user_id);
+  const res = await usersAPI.getUsername(user_id);
+  // console.log(`service res`, res.username);
+  return res.username;
 }
 
 export async function logOutUser() {

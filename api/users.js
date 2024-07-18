@@ -27,7 +27,7 @@ export async function loginUser(userData) {
 export async function logOutUser(token, userData) {
   const res = await fetch(`${BASE_URL}/logout`, {
     method: "POST",
-    headers: { "Content-Type": "application/json", "Authorization": token },
+    headers: { "Content-Type": "application/json", Authorization: token },
     body: JSON.stringify(userData),
   });
   if (res.ok) {
@@ -38,9 +38,11 @@ export async function logOutUser(token, userData) {
 }
 
 export async function getUsername(user_id) {
-  const searchParams = new URLSearchParams({ user_id: user_id });
+  console.log(`api userid`, user_id);
   return await sendRequest(
-    `${BASE_URL}/user?${searchParams}`
-  )
+    `${BASE_URL}/user/${user_id}`,
+    "GET",
+    null,
+    "Error fetching user"
+  );
 }
-  
