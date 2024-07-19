@@ -104,7 +104,7 @@ export default function ProfilePage({ setUser }) {
         </Card>
       </Box>
 
-      <Card mt="8" textAlign="left" mx="auto" borderRadius={20} p={3} w="80vw">
+      <Card mt="8" textAlign="left" mx="auto" borderRadius={20} p={4} w="90vw">
         <Text as="b" fontSize="2xl" align="left">
           My Makan
         </Text>
