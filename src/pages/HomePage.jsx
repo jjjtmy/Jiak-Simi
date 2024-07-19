@@ -11,6 +11,7 @@ export default function HomePage() {
     async function fetchData() {
       try {
         const allCards = await fetchAllDishesIDs(); // Wait for the promise to resolve
+        console.log('allCards', allCards)
         // console.log("allCards", allCards);
         setCards(allCards); // Update state with the fetched array of dish IDs
       } catch (error) {

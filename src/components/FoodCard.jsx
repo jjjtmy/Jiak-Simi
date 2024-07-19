@@ -70,7 +70,7 @@ export default function FoodCard({ dish_id }) {
       {/* TODO: pull image from google */}
       <Image
         src={reviewData.imageUrl}
-        objectFit="contain"
+        objectFit="cover"
         h="120px"
         w="100%"
         backgroundColor="grey"
@@ -87,7 +87,7 @@ export default function FoodCard({ dish_id }) {
           fontWeight="bold"
           fontSize={10}
           color="grey"
-          marginInline="4"
+          marginInline="2"
           pt="2"
         >
           <HStack>
@@ -102,6 +102,7 @@ export default function FoodCard({ dish_id }) {
           <Box
             fontWeight="bold"
             alignSelf="flex-start"
+            textAlign="left"
             fontSize="14px"
             color="black"
           >
@@ -110,7 +111,7 @@ export default function FoodCard({ dish_id }) {
           <Text fontSize="8px" color="grey">
             {reviewData.placeData?.name ? `${reviewData.placeData.name}` : "??"}
           </Text>
-          <Text color="green.400" fontSize="14px">
+          <Text  color="green.400" fontSize="14px">
             {reviewData.dishData?.latest_price != null
               ? `$${intToFloat(reviewData.dishData.latest_price, 2)}`
               : "??"}
