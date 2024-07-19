@@ -1,5 +1,5 @@
-# Jiak Simi (MERN Full Stack App)
-Our Restaurant Reservation App, developed with the MERN stack, offers a streamlined booking experience for users and restaurant owners. It features three main models: User, Booking, and Restaurant, supporting two user roles - Restaurant Owners and Customers. The app simplifies the process of managing and making restaurant reservations, leveraging the latest web technologies for efficiency and user engagement.
+# Jiak Simi 
+"Jiak Simi" is a mobile app designed to address these challenges by providing a platform for friends to share genuine food recommendations. Users can easily add and edit reviews for dishes they’ve tried at different restaurants. Reviews include the dish name, its picture, price, rating, and any comments or tips. The app features a "search by cuisines" page, allowing users to filter dishes according to their preferred cuisine or find inspiration for what to eat next.
 
 ## Approach
 * Plan user stories and features of the app (e.g. being mobile-friendly since users will most likely be using it on the go)
