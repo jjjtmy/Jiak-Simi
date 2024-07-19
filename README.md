@@ -9,7 +9,7 @@
 * Deploy
 
 ## Live URL
-https://
+ https://jiak-simi.onrender.com/
 
 # User stories
 AAU, I would like to:
