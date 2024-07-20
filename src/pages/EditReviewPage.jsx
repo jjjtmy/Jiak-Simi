@@ -15,6 +15,7 @@ import {
   Box,
   IconButton,
   Heading,
+  Flex,
 } from "@chakra-ui/react";
 import { updateReview, getReview } from "../../service/reviews";
 import { getToken } from "../../util/security";
@@ -125,30 +126,18 @@ export default function EditReviewPage() {
   }
 
   return (
-    <Box minHeight="100vh" bg={bgColor} pt={4} mt={10}>
-      <Container maxW="container.md">
-        <IconButton
-          icon={<ArrowBackIcon />}
-          onClick={() => navigate(-1)}
-          position="absolute"
-          top={4}
-          left={4}
-          aria-label="Go back"
-        />
-        <Heading as="h1" size="xl" textAlign="center" mb={6}>
-          Edit Makan
-        </Heading>
+      <Container maxW="container.md" minHeight="100vh" bg={bgColor} pt={4}>
         <FormControl as="form" onSubmit={handleUpdate} isInvalid={error}>
-          <HStack>
-            <VStack spacing={4} align="stretch" mb={6}>
+          <Flex justifyContent="center" gap="8"  mb={6}>
+            <Box>
               <FormLabel>Place</FormLabel>
               <Input
                 name="place"
                 placeholder={originalPlaceState.place}
                 readOnly
               />
-            </VStack>
-            <VStack>
+            </Box>
+            <Box>
               <FormLabel>Cuisine</FormLabel>
               <Select
                 name="cuisine"
@@ -161,8 +150,8 @@ export default function EditReviewPage() {
                 <option value="Italian">Italian</option>
                 <option value="Fast Food">Fast Food</option>
               </Select>
-            </VStack>
-          </HStack>
+            </Box>
+            </Flex>
           <Box bg={cardBgColor} p={4} borderRadius="md" shadow="md">
             <MakanForm
               dish={originalFormState}
@@ -180,6 +169,5 @@ export default function EditReviewPage() {
           </Button>
         </FormControl>
       </Container>
-    </Box>
   );
 }

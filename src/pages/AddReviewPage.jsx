@@ -11,12 +11,9 @@ import {
   FormErrorMessage,
   Box,
   Container,
-  Heading,
-  IconButton,
   useColorModeValue,
   Text,
 } from "@chakra-ui/react";
-import { ArrowBackIcon } from "@chakra-ui/icons";
 import { createReview } from "../../service/reviews";
 import { getToken } from "../../util/security";
 
