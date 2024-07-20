@@ -38,9 +38,8 @@ export default function DishDetailsPage() {
       
       const reviewsWithUsernames = await Promise.all(
         dishReviews.map(async (review) => {
-          const userObj = await getUsername(review.user_id);
-          const username = userObj.username
-          console.log('DD username', username)
+          const username = await getUsername(review.user_id);
+          console.log('username in DD', username)
           return { ...review, username };
         })
       )
