@@ -27,8 +27,8 @@ AAU, I would like to:
 * [Frontend Application](https://https://github.com/jjjtmy/frontend-jiak-simi)
 
 ## Screenshots
-
-
+  ![Landing Page](https://github.com/jjjtmy/frontend-jiak-simi/blob/main/images/Home%20Page.png)
+  
 ## Technologies Used
 ### Backend API/DB
 * [Mongo DB](https://www.mongodb.com/)
