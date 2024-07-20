@@ -68,7 +68,9 @@ AAU, I would like to:
 * [Render](https://render.com/)
 
 ## Product Design Documentations
-* [Figjam + ERD](https://www.figma.com/board/0eadeDavnWvkIEU9P9e1Yu/ga-seif-project-3?node-id=87-618&t=8FLO0bAMzABYc7Xd-0)
+* [Figjam](https://www.figma.com/board/0eadeDavnWvkIEU9P9e1Yu/ga-seif-project-3?node-id=87-618&t=8FLO0bAMzABYc7Xd-0)
+* ERD
+   ![Landing Page](https://github.com/jjjtmy/frontend-jiak-simi/blob/main/images/ERD.png)
 * [Wireframe](https://www.figma.com/proto/FlTi8G0WoYpv3CN6JlJKUu/JIAK-SIMI---mobile?t=hCDeVb4wS8zZRfWm-1)
 * [Workflow Diagram](https://app.diagrams.net/#G1TPK1Dzs6Vetz13UbjRI2xwY9F28nF26n#%7B%22pageId%22%3A%22C5RBs43oDa-KdzZeNtuy%22%7D)
 
