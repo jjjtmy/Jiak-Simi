@@ -27,7 +27,26 @@ AAU, I would like to:
 * [Frontend Application](https://https://github.com/jjjtmy/frontend-jiak-simi)
 
 ## Screenshots
+### Landing Page
   ![Landing Page](https://github.com/jjjtmy/frontend-jiak-simi/blob/main/images/Home%20Page.png)
+### Dish Details Page
+  ![Dish Details Page](https://github.com/jjjtmy/frontend-jiak-simi/blob/main/images/Dish%20Details%20page.png)
+### Log In Page 
+  ![Log In Page](https://github.com/jjjtmy/frontend-jiak-simi/blob/main/images/Log%20In%20Page.png)
+### Filter By Cuisine
+  ![Filter By Cuisine](https://github.com/jjjtmy/frontend-jiak-simi/blob/main/images/Filter%20by%20cuisine.png) 
+### Filtered Results
+  ![Filtered Results](https://github.com/jjjtmy/frontend-jiak-simi/blob/main/images/Filtered%20results.png)
+### Profile Page
+  ![Profile Page](https://github.com/jjjtmy/frontend-jiak-simi/blob/main/images/Profile%20Page.png)
+### Add Review Page
+  ![Add Review Page](https://github.com/jjjtmy/frontend-jiak-simi/blob/main/images/Add%20review.png)
+### Edit Review Page
+  ![Edit Review Page](https://github.com/jjjtmy/frontend-jiak-simi/blob/main/images/Edit%20review.png)
+  
+  
+  
+
   
 ## Technologies Used
 ### Backend API/DB
